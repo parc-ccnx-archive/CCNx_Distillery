@@ -1,0 +1,23 @@
+#!/bin/make -f
+
+export RUBY_DIR=$(shell pwd)/Jekyll
+export GEM_HOME=${RUBY_DIR}
+export GEM_PATH=${GEM_HOME}:/usr/lib/ruby/gems/2.0.0
+
+SOURCE_DIR=PARC
+
+JEKYLL_DIR=${GEM_HOME}/gems/jekyll-1.4.3/bin/jekyll
+
+all: depend
+
+check:
+	GEM_PATH=${GEM_PATH} GEM_HOME=${GEM_HOME} gem environment
+
+depend: ${JEKYLL_DIR}
+
+${JEKYLL_DIR}:
+	mkdir -p ${RUBY_DIR}
+	gem install -i ${RUBY_DIR} jekyll
+
+clobber:
+	rm -rf ${RUBY_DIR}

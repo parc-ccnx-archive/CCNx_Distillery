@@ -1,0 +1,9 @@
+# Created files and directories
+build
+usr
+.distillery.stamp
+src
+
+# Temporary files
+*.swp
+*~

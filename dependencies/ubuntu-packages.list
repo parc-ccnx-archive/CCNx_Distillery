@@ -1,0 +1,1 @@
+libssl-dev openssl flex bison expat libexpat1-dev libpcap-dev libevent-dev g++ libpcre3-dev python-dev uncrustify doxygen

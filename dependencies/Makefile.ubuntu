@@ -1,0 +1,7 @@
+# Makefile to install ubuntu dependencies
+
+ubuntu.install.packages:
+	ubuntu-install-packages.sh
+
+ubuntu.check:
+	ubuntu-check.sh

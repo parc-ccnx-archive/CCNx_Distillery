@@ -1,0 +1,21 @@
+CCNx Distillery Config Directory
+
+This is the directory where CCNx Distillery stores it's configuration
+information. Most configuration is parsed by makefile so the files are in
+makefile format.
+
+Important files and directories
+
+# config.mk
+This is the default configuration. DO NOT CHANGE THIS FILE. You can use this
+file as a template to create your own configuration.
+
+# modules
+This is the modules directory. It has the configuration file for each module
+that is available through Distillery.
+
+# local
+This directory (may or may not exist) is the place to put your local
+configuration files. It gets ignored by git.  Make will look for a
+configuration file called config.mk in this directory to configure this
+specific instance of Distillery.

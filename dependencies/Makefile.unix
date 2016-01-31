@@ -1,0 +1,14 @@
+#
+# We need something to detect Unixs
+#
+# Copyright PARC 2014
+#
+
+UNAME := $(shell uname)
+UNAME_M := $(shell uname -m)
+
+ifeq (${UNAME},Darwin)
+	OPENSSL_CONFIGURE=./Configure darwin64-x86_64-cc
+else
+	OPENSSL_CONFIGURE=./config
+endif
