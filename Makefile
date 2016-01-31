@@ -163,6 +163,9 @@ check: ${modules_check}
 step: ${modules_step}
 
 status: ${modules_status}
+	@echo '===================================================================='
+	@/bin/echo -n "Distillery : "
+	@git rev-parse HEAD 2> /dev/null ; git status -s --branch 
 
 fetch: ${modules_fetch}
 
