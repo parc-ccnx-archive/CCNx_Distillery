@@ -1,14 +1,14 @@
 ########################################################################
 # CCNx Distillery project
 #
-# Copyright PARC 2014, 2015
+# Copyright PARC 2014, 2015, 2016
 # Ignacio.Solis@parc.com
 #
 
 .PHONY: dir_check
 
 
-DEPENDENCIES_VERSION=20150311b
+DEPENDENCIES_VERSION=20160131
 
 ########################################################################
 # Define general variables to load dependencies
@@ -246,36 +246,6 @@ cmake-clobber:
 
 
 #----------------------------------------------------
-# hfcca
-
-HFCCA_DIR=hfcca-1.7.1
-HFCCA_TARGZ=${HFCCA_DIR}.tar.gz
-HFCCA_SEMAPHORE=${DISTILLERY_EXTERN_DIR}/${HFCCA_DIR}.sem
-HFCCA_DOWNLOAD_URL=
-
-#hfcca: ${DISTILLERY_EXTERN_DIR}/etc/site-packages/hfcca.py
-hfcca:
-
-${DISTILLERY_EXTERN_DIR}/etc/site-packages/hfcca.py: 
-	$(MAKE) ${DOWNLOAD_DIR}/${HFCCA_TARGZ}
-	tar xf ${DOWNLOAD_DIR}/${HFCCA_TARGZ}
-	install -d ${DISTILLERY_EXTERN_DIR}/etc/site-packages/
-	install hfcca-1.7.1/hfcca.py ${DISTILLERY_EXTERN_DIR}/etc/site-packages/	
-	touch ${HFCCA_SEMAPHORE} 
-
-dep_clean += hfcca-clean
-dep_clobber += hfcca-clobber
-	
-hfcca-clean:
-
-hfcca-clobber: 
-	@rm -rf ${HFCCA_DIR}
-	@rm -rf ${DISTILLERY_EXTERN_DIR}/etc/site-packages/hfcca.py
-
-${DOWNLOAD_DIR}/${HFCCA_TARGZ}:
-	cd ${DOWNLOAD_DIR}; ${DOWNLOADER} ${HFCCA_DOWNLOAD_URL}/${HFCCA_TARGZ}
-
-#----------------------------------------------------
 # uncrustify
 
 UNCRUSTIFY_DIR=uncrustify-0.61
@@ -341,8 +311,8 @@ doxygen-clobber:
 #############################################################################
 # Figure out what we actually need
 
-LONGBOW_EXTERNS=hfcca 
-LONGBOW_SEMAPHORES=${HFCCA_SEMAPHORE} 
+LONGBOW_EXTERNS=
+LONGBOW_SEMAPHORES=
 
 ifeq (${UNAME},Darwin)
     system_fix_as_root=

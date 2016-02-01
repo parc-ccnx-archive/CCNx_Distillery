@@ -1,6 +1,6 @@
 # Distillery 2.0
 
-This is the Distillery CCNx software distribution. It is in charge of pulling
+This is the CCNx Distillery software distribution. It is in charge of pulling
 together all the necessary modules to build a full CCNx software suite.
 
 While Distillery brings a bunch of modules together; each module is
@@ -12,34 +12,97 @@ tools for writing, testing and evaluating code.
 
 For Distillery licensing information please read the LICENSE file.
 
-### Quick Start ###
+## Quick Start ##
 
-Install dependencies:
 ```
+# Clone this distro
+git clone git@github.com:PARC/CCNx_Distillery.git
+cd CCNx_Distillery
+
+# Install dependencies (if needed)
 make dependencies
+
+# Update each of the modules
+make update 
+
+# Compile everything
+make all
+
+# Test everything
+make check
 ```
 
-The following commands will download all the code and compile it:
-```
-make update
-make step
-```
+The CCNx software will be installed in `CCNx_Distillery/usr`
 
-### Getting Started ###
+## Contents ##
+
+Distillery brings together a set of modules that are needed to build a full CCNx distribution. It checks each one out and compiles them in order.  The modules used by Distillery can be configured and customized.  By default the following modules are included:
+
+- [LongBow](https://github.com/PARC/LongBow)
+- [Libparc](https://github.com/PARC/Libparc)
+- [Libccnx-common](https://github.com/PARC/Libccnx-common)
+- [Libccnx-transport-rta](https://github.com/PARC/Libccnx-transport-rta)
+- [Libccnx-portal](https://github.com/PARC/Libccnx-portal)
+- [Metis](https://github.com/PARC/Metis)
+- [Athena](https://github.com/PARC/Athena)
+
+## Platforms ##
+
+- Ubuntu 14.04LTS
+- MacOS X 10.10 Yosemite
+- MacOS X 10.11 El Capitan
+
+We on Linux and Mac and spend most of our time in Ubuntu and El Capitan.  The software does run on other environemnts, both other OSs and other architectures. However we don't do much testing on this. Distillery has been known to work on ARM and MIPS, Debian and Android.
+
+With time we expect portability will improve.
+
+## Dependencies ##
+
+You can install dependencies from Distillery with the command: `make dependencies`. We keep the dependency install as up-to-date as possible but it may fall out of date every once in a while.
+
+For Ubuntu/Debian Linux systems you can install many of the dependencies via apt-get / aptitude or the relevant package manager.  While we aim to keep our depedencies in sync with what's available with Ubuntu 14.04LTS this is not always possible.
+
+On Mac we install most of what we need by downloading and compiling the respective tarballs.
+
+Currently Distillery has the following main dependencies:
+
+- CMake 3.4.3
+- Libevent 2.0.22
+- OpenSSL 1.0.1q
+- pcre 8.38
+
+LongBow can also make use of the following tools:
+
+- uncrustify 0.61
+- doxygen 1.8.9.1
+
+
+## Getting Started ##
 
 To get simple help run `make`. This will give you a list of possible targets to
-execute.
+execute. You will basically want to download all the sources and compile.
 
-You will need to install dependencies `make dependencies`.  You can pull the
-code from all the sub projects using `make update`. You can compile all the
-binaries using `make all`. Run all tests using `make check`.  `make info` will
-give you some information about the build environment.
+Here's a short summary:
 
-### Contact ###
+- `make dependencies` - Make the dependencies needed to build Distillery
+- `make update` - Update all the source modules (git clone / git pull)
+- `make all` - Compile all the software
+- `make check` - Run all unit tests
+- `make step` - Compile and test each module in sequence
+- `make info` - Show some of the environment variables used by Distillery
+- `make status` - Show the git status of each module
 
-http://www.ccnx.org/
+## Configuration ##
 
-### License ###
+Distillery can be configured in multiple ways.  Please check the config directory (specifically `config/config.mk`) for more information.
+
+## Contact ##
+
+You can find more information about CCNx at the main web page, [CCNx.org](http://www.ccnx.org).
+Discussion about CCNx Distillery takes place in the [CCNx mailing list](https://www.ccnx.org/mailman/listinfo/ccnx/), please join the discussion there.  You can also file any issues you find on the [CCNx Distillery github](https://github.com/PARC/CCNx_Distillery).
+
+
+## License ##
 
 This software is distributed under the following license:
 
