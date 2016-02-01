@@ -67,6 +67,8 @@ DISTILLERY_DEPENDENCIES_DIR?=/usr/local/ccnx/dependencies
 # It is used in gravy for includes and linking. This should be for the TARGET
 # architecture.
 DISTILLERY_EXTERN_DIR?=${DISTILLERY_DEPENDENCIES_DIR}/build
+CCNX_DEPENDENCIES?=${DISTILLERY_EXTERN_DIR}
+export CCNX_DEPENDENCIES
 
 # DISTILLERY_TOOLS_DIR=/path/to/dependency/tools/dir
 # This directory holds some of the tools needed to build libccnx. It should be
