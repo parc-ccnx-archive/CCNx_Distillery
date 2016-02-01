@@ -109,8 +109,7 @@ modules_status=$(modules_dir:=.status)
 modules_nuke=$(modules_dir:=.nuke)
 
 # These are the basic build rules. They will call the module specific rules
-
-install-all: install-directories ${modules}
+install-all: install-directories pre-requisites ${modules}
 
 # If somebody calls "make Module", we will build and install it
 ${modules}:
@@ -180,6 +179,21 @@ dependencies.clean:
 dependencies.clobber:
 	@${MAKE} -C dependencies clobber
 
+pre-requisites: cmake-check
+
+CMAKE_VERSION := $(shell PATH=${PATH} cmake --version | grep "cmake version 3.4" | cut -c 15-15)
+cmake-check:
+	@if [ ! x${CMAKE_VERSION} = x3 ]; then \
+	  make cmake-notfound ; exit 1 ; \
+	fi
+
+cmake-notfound:
+	@echo "ERROR - CMake 3.x not found."
+	@echo "  Many of the modules used by Distillery require CMake 3.x"
+	@echo "  Please install cmake 3.x. You can do this manually or just"
+	@echo "  run make dependencies"
+
+
 help:
 	@echo "Simple instructions: run \"make update step\""
 	@echo 
@@ -209,9 +223,9 @@ ${DISTILLERY_STAMP}: ${REBUILD_DEPENDS}
 	touch $@ 
 
 install-directories:
-	mkdir -p ${DISTILLERY_INSTALL_DIR}/include
-	mkdir -p ${DISTILLERY_INSTALL_DIR}/lib
-	mkdir -p ${DISTILLERY_INSTALL_DIR}/bin
+	@mkdir -p ${DISTILLERY_INSTALL_DIR}/include
+	@mkdir -p ${DISTILLERY_INSTALL_DIR}/lib
+	@mkdir -p ${DISTILLERY_INSTALL_DIR}/bin
 
 Distillery.report:
 	@echo '###################################'

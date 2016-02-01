@@ -91,6 +91,9 @@ Here's a short summary:
 - `make step` - Compile and test each module in sequence
 - `make info` - Show some of the environment variables used by Distillery
 - `make status` - Show the git status of each module
+- `make distclean` - Delete build directory (but not built executables)
+- `make clobber` - Delete build directory and install directories. WARNING - If you configure this to install on a system directory this may delete system files!
+
 
 ## Configuration ##
 
