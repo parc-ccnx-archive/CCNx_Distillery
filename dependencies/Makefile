@@ -282,7 +282,7 @@ ${DOWNLOAD_DIR}/${UNCRUSTIFY_TARGZ}:
 DOXYGEN_DIR=doxygen-1.8.11
 DOXYGEN_TARGZ=${DOXYGEN_DIR}.src.tar.gz
 DOXYGEN_SEMAPHORE=${DISTILLERY_TOOLS_DIR}/${DOXYGEN_DIR}.sem
-DOXYGEN_DOWNLOAD_URL=http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.11.src.tar.gz
+DOXYGEN_DOWNLOAD_URL=http://downloads.sourceforge.net/project/doxygen/rel-1.8.11
 
 
 dep_clean += doxygen-clean
