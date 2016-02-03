@@ -18,13 +18,12 @@ modules_dir+=${ATHENA_SOURCE_DIR}
 # init target, called to initialize the module, normally this would do a git
 # checkout or download the source/binary from somewhere
 Athena.init: ${ATHENA_GIT_CONFIG}
-	@cd ${ATHENA_SOURCE_DIR} && git pull
-	@cd ${ATHENA_SOURCE_DIR} && git remote add \
-	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${ATHENA_GIT_UPSTREAM_REPOSITORY}
-	@cd ${ATHENA_SOURCE_DIR} && git fetch --all
+	@cd ${ATHENA_SOURCE_DIR} && git pull && git fetch --all
 
 ${ATHENA_GIT_CONFIG}:
 	@git clone ${ATHENA_GIT_REPOSITORY} ${ATHENA_SOURCE_DIR}
+	@cd ${ATHENA_SOURCE_DIR} && git remote add \
+	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${ATHENA_GIT_UPSTREAM_REPOSITORY}
 
 Athena.build: ${ATHENA_BUILD_DIR}/Makefile
 	${MAKE} ${MAKE_BUILD_FLAGS} -C ${ATHENA_BUILD_DIR} 

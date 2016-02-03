@@ -18,13 +18,12 @@ modules_dir+=${LIBPARC_SOURCE_DIR}
 # init target, called to initialize the module, normally this would do a git
 # checkout or download the source/binary from somewhere
 Libparc.init: ${LIBPARC_GIT_CONFIG}
-	@cd ${LIBPARC_SOURCE_DIR} && git pull
-	@cd ${LIBPARC_SOURCE_DIR} && git remote add \
-	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${LIBPARC_GIT_UPSTREAM_REPOSITORY}
-	@cd ${LIBPARC_SOURCE_DIR} && git fetch --all
+	@cd ${LIBPARC_SOURCE_DIR} && git pull && git fetch --all
 
 ${LIBPARC_GIT_CONFIG}:
 	@git clone ${LIBPARC_GIT_REPOSITORY} ${LIBPARC_SOURCE_DIR}
+	@cd ${LIBPARC_SOURCE_DIR} && git remote add \
+	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${LIBPARC_GIT_UPSTREAM_REPOSITORY}
 
 Libparc.build: ${LIBPARC_BUILD_DIR}/Makefile
 	${MAKE} ${MAKE_BUILD_FLAGS} -C ${LIBPARC_BUILD_DIR} 

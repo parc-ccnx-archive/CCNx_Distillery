@@ -18,13 +18,12 @@ modules_dir+=${LIBCCNX_TRANSPORT_RTA_SOURCE_DIR}
 # init target, called to initialize the module, normally this would do a git
 # checkout or download the source/binary from somewhere
 Libccnx-transport-rta.init: ${LIBCCNX_TRANSPORT_RTA_GIT_CONFIG}
-	@cd ${LIBCCNX_TRANSPORT_RTA_SOURCE_DIR} && git pull
-	@cd ${LIBCCNX_TRANSPORT_RTA_SOURCE_DIR} && git remote add \
-	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${LIBCCNX_TRANSPORT_RTA_GIT_UPSTREAM_REPOSITORY}
-	@cd ${LIBCCNX_TRANSPORT_RTA_SOURCE_DIR} && git fetch --all
+	@cd ${LIBCCNX_TRANSPORT_RTA_SOURCE_DIR} && git pull && git fetch --all
 
 ${LIBCCNX_TRANSPORT_RTA_GIT_CONFIG}:
 	@git clone ${LIBCCNX_TRANSPORT_RTA_GIT_REPOSITORY} ${LIBCCNX_TRANSPORT_RTA_SOURCE_DIR}
+	@cd ${LIBCCNX_TRANSPORT_RTA_SOURCE_DIR} && git remote add \
+	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${LIBCCNX_TRANSPORT_RTA_GIT_UPSTREAM_REPOSITORY}
 
 Libccnx-transport-rta.build: ${LIBCCNX_TRANSPORT_RTA_BUILD_DIR}/Makefile
 	${MAKE} ${MAKE_BUILD_FLAGS} -C ${LIBCCNX_TRANSPORT_RTA_BUILD_DIR} 
