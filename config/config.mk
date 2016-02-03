@@ -30,10 +30,9 @@
 # to change it to your local github enterprise.
 DISTILLERY_GITHUB_SERVER=github.com
 
-#DISTILLERY_GITHUB_SOURCE_USER=PARC
-# This is the Distillery GitHub source user. It's where the source comes from.
-# It may be used to do code fetches 
-DISTILLERY_GITHUB_SOURCE_USER?=PARC
+#DISTILLERY_GITHUB_UPSTREAM_NAME=parc_upstream
+# This is the name to use for the upstream in the repositories
+DISTILLERY_GITHUB_UPSTREAM_NAME?=parc_upstream
 
 # DISTILLERY_GITHUB_USER?=PARC
 # This is the user that will be used to generate the module github URLs.

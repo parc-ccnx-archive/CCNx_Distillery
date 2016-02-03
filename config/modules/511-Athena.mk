@@ -11,6 +11,7 @@ ATHENA_BUILD_DIR=${DISTILLERY_BUILD_DIR}/${ATHENA_MODULE_NAME}
 ATHENA_GIT_CONFIG=${ATHENA_SOURCE_DIR}/.git/config
 
 ATHENA_GIT_REPOSITORY=https://${DISTILLERY_GITHUB_SERVER}/${DISTILLERY_GITHUB_USER}/Athena
+ATHENA_GIT_UPSTREAM_REPOSITORY=https://github.com/PARC/Athena
 
 modules_dir+=${ATHENA_SOURCE_DIR}
 
@@ -18,6 +19,9 @@ modules_dir+=${ATHENA_SOURCE_DIR}
 # checkout or download the source/binary from somewhere
 Athena.init: ${ATHENA_GIT_CONFIG}
 	@cd ${ATHENA_SOURCE_DIR} && git pull
+	@cd ${ATHENA_SOURCE_DIR} && git remote add \
+	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${ATHENA_GIT_UPSTREAM_REPOSITORY}
+	@cd ${ATHENA_SOURCE_DIR} && git fetch --all
 
 ${ATHENA_GIT_CONFIG}:
 	@git clone ${ATHENA_GIT_REPOSITORY} ${ATHENA_SOURCE_DIR}

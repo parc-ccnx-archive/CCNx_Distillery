@@ -11,6 +11,7 @@ METIS_BUILD_DIR=${DISTILLERY_BUILD_DIR}/${METIS_MODULE_NAME}
 METIS_GIT_CONFIG=${METIS_SOURCE_DIR}/.git/config
 
 METIS_GIT_REPOSITORY=https://${DISTILLERY_GITHUB_SERVER}/${DISTILLERY_GITHUB_USER}/Metis
+METIS_GIT_UPSTREAM_REPOSITORY=https://github.com/PARC/Metis
 
 modules_dir+=${METIS_SOURCE_DIR}
 
@@ -18,6 +19,9 @@ modules_dir+=${METIS_SOURCE_DIR}
 # checkout or download the source/binary from somewhere
 Metis.init: ${METIS_GIT_CONFIG}
 	@cd ${METIS_SOURCE_DIR} && git pull
+	@cd ${METIS_SOURCE_DIR} && git remote add \
+	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${METIS_GIT_UPSTREAM_REPOSITORY}
+	@cd ${METIS_SOURCE_DIR} && git fetch --all
 
 ${METIS_GIT_CONFIG}:
 	@git clone ${METIS_GIT_REPOSITORY} ${METIS_SOURCE_DIR}
