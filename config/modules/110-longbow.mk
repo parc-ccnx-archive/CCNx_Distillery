@@ -18,6 +18,7 @@ modules_dir+=${LONGBOW_SOURCE_DIR}
 # init target, called to initialize the module, normally this would do a git
 # checkout or download the source/binary from somewhere
 LongBow.init: ${LONGBOW_GIT_CONFIG}
+	@echo ${LONGBOW_SOURCE_DIR}
 	@cd ${LONGBOW_SOURCE_DIR} && git pull && git fetch --all
 
 ${LONGBOW_GIT_CONFIG}:

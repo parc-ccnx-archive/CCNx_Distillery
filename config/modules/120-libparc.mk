@@ -18,6 +18,7 @@ modules_dir+=${LIBPARC_SOURCE_DIR}
 # init target, called to initialize the module, normally this would do a git
 # checkout or download the source/binary from somewhere
 Libparc.init: ${LIBPARC_GIT_CONFIG}
+	@echo ${LIBPARC_SOURCE_DIR}
 	@cd ${LIBPARC_SOURCE_DIR} && git pull && git fetch --all
 
 ${LIBPARC_GIT_CONFIG}:

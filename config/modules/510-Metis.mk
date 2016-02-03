@@ -18,6 +18,7 @@ modules_dir+=${METIS_SOURCE_DIR}
 # init target, called to initialize the module, normally this would do a git
 # checkout or download the source/binary from somewhere
 Metis.init: ${METIS_GIT_CONFIG}
+	@echo ${METIS_SOURCE_DIR}
 	@cd ${METIS_SOURCE_DIR} && git pull && git fetch --all
 
 ${METIS_GIT_CONFIG}:

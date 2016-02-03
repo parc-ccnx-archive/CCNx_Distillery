@@ -18,6 +18,7 @@ modules_dir+=${LIBCCNX_PORTAL_SOURCE_DIR}
 # init target, called to initialize the module, normally this would do a git
 # checkout or download the source/binary from somewhere
 Libccnx-portal.init: ${LIBCCNX_PORTAL_GIT_CONFIG}
+	@echo ${LIBCCNX_PORTAL_SOURCE_DIR}
 	@cd ${LIBCCNX_PORTAL_SOURCE_DIR} && git pull && git fetch --all
 
 ${LIBCCNX_PORTAL_GIT_CONFIG}:

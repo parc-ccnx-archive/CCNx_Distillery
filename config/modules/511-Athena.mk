@@ -18,6 +18,7 @@ modules_dir+=${ATHENA_SOURCE_DIR}
 # init target, called to initialize the module, normally this would do a git
 # checkout or download the source/binary from somewhere
 Athena.init: ${ATHENA_GIT_CONFIG}
+	@echo ${ATHENA_SOURCE_DIR}
 	@cd ${ATHENA_SOURCE_DIR} && git pull && git fetch --all
 
 ${ATHENA_GIT_CONFIG}:
