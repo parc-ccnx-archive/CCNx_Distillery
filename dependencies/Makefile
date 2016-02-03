@@ -250,18 +250,18 @@ cmake-clobber:
 
 UNCRUSTIFY_DIR=uncrustify-0.61
 UNCRUSTIFY_TARGZ=${UNCRUSTIFY_DIR}.tar.gz
-UNCRUSTIFY_SEMAPHORE=${DISTILLERY_EXTERN_DIR}/${UNCRUSTIFY_DIR}.sem
+UNCRUSTIFY_SEMAPHORE=${DISTILLERY_TOOLS_DIR}/${UNCRUSTIFY_DIR}.sem
 UNCRUSTIFY_DOWNLOAD_URL=http://downloads.sourceforge.net/project/uncrustify/uncrustify/uncrustify-0.61
 
 dep_clean += uncrustify-clean
 dep_clobber += uncrustify-clobber
 
-uncrustify: ${DISTILLERY_EXTERN_DIR}/bin/uncrustify
+uncrustify: ${DISTILLERY_TOOLS_DIR}/bin/uncrustify
 
-${DISTILLERY_EXTERN_DIR}/bin/uncrustify: 
+${DISTILLERY_TOOLS_DIR}/bin/uncrustify: 
 	$(MAKE) ${DOWNLOAD_DIR}/${UNCRUSTIFY_TARGZ} 
 	tar xzf ${DOWNLOAD_DIR}/${UNCRUSTIFY_TARGZ}
-	(cd ${UNCRUSTIFY_DIR} && ./configure --prefix=${DISTILLERY_EXTERN_DIR} && make)
+	(cd ${UNCRUSTIFY_DIR} && ./configure --prefix=${DISTILLERY_TOOLS_DIR} && make)
 	(cd ${UNCRUSTIFY_DIR} && make install )
 	touch ${UNCRUSTIFY_SEMAPHORE}
 
@@ -281,19 +281,19 @@ ${DOWNLOAD_DIR}/${UNCRUSTIFY_TARGZ}:
 
 DOXYGEN_DIR=doxygen-1.8.9.1
 DOXYGEN_TARGZ=${DOXYGEN_DIR}.src.tar.gz
-DOXYGEN_SEMAPHORE=${DISTILLERY_EXTERN_DIR}/${DOXYGEN_DIR}.sem
+DOXYGEN_SEMAPHORE=${DISTILLERY_TOOLS_DIR}/${DOXYGEN_DIR}.sem
 DOXYGEN_DOWNLOAD_URL=http://downloads.sourceforge.net/project/doxygen/rel-1.8.9.1
 
 
 dep_clean += doxygen-clean
 dep_clobber += doxygen-clobber
 
-doxygen: ${DISTILLERY_EXTERN_DIR}/bin/doxygen
+doxygen: ${DISTILLERY_TOOLS_DIR}/bin/doxygen
 
-${DISTILLERY_EXTERN_DIR}/bin/doxygen: 
+${DISTILLERY_TOOLS_DIR}/bin/doxygen: 
 	$(MAKE) ${DOWNLOAD_DIR}/${DOXYGEN_TARGZ}
 	tar xzf ${DOWNLOAD_DIR}/${DOXYGEN_TARGZ}
-	(cd ${DOXYGEN_DIR} && ./configure --prefix=${DISTILLERY_EXTERN_DIR} && make)
+	(cd ${DOXYGEN_DIR} && ./configure --prefix=${DISTILLERY_TOOLS_DIR} && make)
 	(cd ${DOXYGEN_DIR} && make install)
 	touch ${DOXYGEN_SEMAPHORE}
 
