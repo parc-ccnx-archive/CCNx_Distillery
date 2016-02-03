@@ -279,10 +279,10 @@ ${DOWNLOAD_DIR}/${UNCRUSTIFY_TARGZ}:
 #----------------------------------------------------
 # doxygen
 
-DOXYGEN_DIR=doxygen-1.8.9.1
+DOXYGEN_DIR=doxygen-1.8.11
 DOXYGEN_TARGZ=${DOXYGEN_DIR}.src.tar.gz
 DOXYGEN_SEMAPHORE=${DISTILLERY_TOOLS_DIR}/${DOXYGEN_DIR}.sem
-DOXYGEN_DOWNLOAD_URL=http://downloads.sourceforge.net/project/doxygen/rel-1.8.9.1
+DOXYGEN_DOWNLOAD_URL=http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.11.src.tar.gz
 
 
 dep_clean += doxygen-clean
@@ -293,7 +293,7 @@ doxygen: ${DISTILLERY_TOOLS_DIR}/bin/doxygen
 ${DISTILLERY_TOOLS_DIR}/bin/doxygen: 
 	$(MAKE) ${DOWNLOAD_DIR}/${DOXYGEN_TARGZ}
 	tar xzf ${DOWNLOAD_DIR}/${DOXYGEN_TARGZ}
-	(cd ${DOXYGEN_DIR} && ./configure --prefix=${DISTILLERY_TOOLS_DIR} && make)
+	(cd ${DOXYGEN_DIR} && cmake -DCMAKE_INSTALL_PREFIX=${DISTILLERY_TOOLS_DIR} && make)
 	(cd ${DOXYGEN_DIR} && make install)
 	touch ${DOXYGEN_SEMAPHORE}
 
