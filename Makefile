@@ -61,7 +61,8 @@ include ${DISTILLERY_DEFAULT_CONFIG}
 # LD_RUN_PATH: add our install dir
 
 export PATH := $(DISTILLERY_INSTALL_DIR)/bin:$(DISTILLERY_TOOLS_DIR)/bin:$(PATH)
-export LD_RUN_PATH := $(DISTILLERY_INSTALL_DIR)/lib
+#export LD_RUN_PATH := $(DISTILLERY_INSTALL_DIR)/lib
+#export LD_LIBRARY_PATH := $(DISTILLERY_INSTALL_DIR)/lib
 export CCNX_HOME
 export FOUNDATION_HOME
 
@@ -132,7 +133,7 @@ ${modules_status}:
 ${modules_fetch}:
 	@#cd Module_dir; git fetch
 	@cd $(@:.fetch=); \
-		git fetch
+		git fetch --all
 
 ${modules_nuke}:
 	@#cd Module_dir; git fetch
@@ -181,7 +182,7 @@ dependencies.clobber:
 
 pre-requisites: cmake-check
 
-CMAKE_VERSION := $(shell PATH=${PATH} cmake --version | grep "cmake version 3.4" | cut -c 15-15)
+CMAKE_VERSION := $(shell PATH=${PATH} cmake --version | grep "cmake version 3" | cut -c 15-15)
 cmake-check:
 	@if [ ! x${CMAKE_VERSION} = x3 ]; then \
 	  make cmake-notfound ; exit 1 ; \
