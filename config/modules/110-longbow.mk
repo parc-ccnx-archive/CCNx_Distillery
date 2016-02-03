@@ -11,16 +11,20 @@ LONGBOW_BUILD_DIR=${DISTILLERY_BUILD_DIR}/${LONGBOW_MODULE_NAME}
 LONGBOW_GIT_CONFIG=${LONGBOW_SOURCE_DIR}/.git/config
 
 LONGBOW_GIT_REPOSITORY=https://${DISTILLERY_GITHUB_SERVER}/${DISTILLERY_GITHUB_USER}/LongBow
+LONGBOW_GIT_UPSTREAM_REPOSITORY=https://github.com/PARC/LongBow
 
 modules_dir+=${LONGBOW_SOURCE_DIR}
 
 # init target, called to initialize the module, normally this would do a git
 # checkout or download the source/binary from somewhere
 LongBow.init: ${LONGBOW_GIT_CONFIG}
-	@cd ${LONGBOW_SOURCE_DIR} && git pull
+	@echo ${LONGBOW_SOURCE_DIR}
+	@cd ${LONGBOW_SOURCE_DIR} && git pull && git fetch --all
 
 ${LONGBOW_GIT_CONFIG}:
 	@git clone ${LONGBOW_GIT_REPOSITORY} ${LONGBOW_SOURCE_DIR}
+	@cd ${LONGBOW_SOURCE_DIR} && git remote add \
+	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${LONGBOW_GIT_UPSTREAM_REPOSITORY}
 
 LongBow.build: ${LONGBOW_BUILD_DIR}/Makefile
 	${MAKE} ${MAKE_BUILD_FLAGS} -C ${LONGBOW_BUILD_DIR} 

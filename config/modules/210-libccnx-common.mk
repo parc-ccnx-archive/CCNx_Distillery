@@ -11,16 +11,20 @@ LIBCCNX_BUILD_DIR=${DISTILLERY_BUILD_DIR}/${LIBCCNX_MODULE_NAME}
 LIBCCNX_GIT_CONFIG=${LIBCCNX_SOURCE_DIR}/.git/config
 
 LIBCCNX_GIT_REPOSITORY=https://${DISTILLERY_GITHUB_SERVER}/${DISTILLERY_GITHUB_USER}/Libccnx-common
+LIBCCNX_GIT_UPSTREAM_REPOSITORY=https://github.com/PARC/Libccnx-common
 
 modules_dir+=${LIBCCNX_SOURCE_DIR}
 
 # init target, called to initialize the module, normally this would do a git
 # checkout or download the source/binary from somewhere
 Libccnx-common.init: ${LIBCCNX_GIT_CONFIG}
-	@cd ${LIBCCNX_SOURCE_DIR} && git pull
+	@echo ${LIBCCNX_SOURCE_DIR}
+	@cd ${LIBCCNX_SOURCE_DIR} && git pull && git fetch --all
 
 ${LIBCCNX_GIT_CONFIG}:
 	@git clone ${LIBCCNX_GIT_REPOSITORY} ${LIBCCNX_SOURCE_DIR}
+	@cd ${LIBCCNX_SOURCE_DIR} && git remote add \
+	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${LIBCCNX_GIT_UPSTREAM_REPOSITORY}
 
 Libccnx-common.build: ${LIBCCNX_BUILD_DIR}/Makefile
 	${MAKE} ${MAKE_BUILD_FLAGS} -C ${LIBCCNX_BUILD_DIR} 

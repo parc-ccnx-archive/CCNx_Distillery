@@ -11,16 +11,20 @@ METIS_BUILD_DIR=${DISTILLERY_BUILD_DIR}/${METIS_MODULE_NAME}
 METIS_GIT_CONFIG=${METIS_SOURCE_DIR}/.git/config
 
 METIS_GIT_REPOSITORY=https://${DISTILLERY_GITHUB_SERVER}/${DISTILLERY_GITHUB_USER}/Metis
+METIS_GIT_UPSTREAM_REPOSITORY=https://github.com/PARC/Metis
 
 modules_dir+=${METIS_SOURCE_DIR}
 
 # init target, called to initialize the module, normally this would do a git
 # checkout or download the source/binary from somewhere
 Metis.init: ${METIS_GIT_CONFIG}
-	@cd ${METIS_SOURCE_DIR} && git pull
+	@echo ${METIS_SOURCE_DIR}
+	@cd ${METIS_SOURCE_DIR} && git pull && git fetch --all
 
 ${METIS_GIT_CONFIG}:
 	@git clone ${METIS_GIT_REPOSITORY} ${METIS_SOURCE_DIR}
+	@cd ${METIS_SOURCE_DIR} && git remote add \
+	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${METIS_GIT_UPSTREAM_REPOSITORY}
 
 Metis.build: ${METIS_BUILD_DIR}/Makefile
 	${MAKE} ${MAKE_BUILD_FLAGS} -C ${METIS_BUILD_DIR} 

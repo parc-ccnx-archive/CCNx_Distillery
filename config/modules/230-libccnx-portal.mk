@@ -11,16 +11,20 @@ LIBCCNX_PORTAL_BUILD_DIR=${DISTILLERY_BUILD_DIR}/${LIBCCNX_PORTAL_MODULE_NAME}
 LIBCCNX_PORTAL_GIT_CONFIG=${LIBCCNX_PORTAL_SOURCE_DIR}/.git/config
 
 LIBCCNX_PORTAL_GIT_REPOSITORY=https://${DISTILLERY_GITHUB_SERVER}/${DISTILLERY_GITHUB_USER}/Libccnx-portal
+LIBCCNX_PORTAL_GIT_UPSTREAM_REPOSITORY=https://github.com/PARC/Libccnx-portal
 
 modules_dir+=${LIBCCNX_PORTAL_SOURCE_DIR}
 
 # init target, called to initialize the module, normally this would do a git
 # checkout or download the source/binary from somewhere
 Libccnx-portal.init: ${LIBCCNX_PORTAL_GIT_CONFIG}
-	@cd ${LIBCCNX_PORTAL_SOURCE_DIR} && git pull
+	@echo ${LIBCCNX_PORTAL_SOURCE_DIR}
+	@cd ${LIBCCNX_PORTAL_SOURCE_DIR} && git pull && git fetch --all
 
 ${LIBCCNX_PORTAL_GIT_CONFIG}:
 	@git clone ${LIBCCNX_PORTAL_GIT_REPOSITORY} ${LIBCCNX_PORTAL_SOURCE_DIR}
+	@cd ${LIBCCNX_PORTAL_SOURCE_DIR} && git remote add \
+	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${LIBCCNX_PORTAL_GIT_UPSTREAM_REPOSITORY}
 
 Libccnx-portal.build: ${LIBCCNX_PORTAL_BUILD_DIR}/Makefile
 	${MAKE} ${MAKE_BUILD_FLAGS} -C ${LIBCCNX_PORTAL_BUILD_DIR} 
