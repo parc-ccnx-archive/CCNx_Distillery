@@ -108,6 +108,7 @@ modules_step=$(modules:=.step)
 modules_fetch=$(modules_dir:=.fetch)
 modules_status=$(modules_dir:=.status)
 modules_nuke=$(modules_dir:=.nuke)
+modules_sync=$(modules_dir:=.sync)
 
 # These are the basic build rules. They will call the module specific rules
 install-all: install-directories pre-requisites ${modules}
@@ -139,6 +140,13 @@ ${modules_nuke}:
 	@#cd Module_dir; git fetch
 	@cd $(@:.nuke=); \
 		git clean -dfx && git reset --hard
+
+sync: ${modules_sync}
+	
+${modules_sync}:
+	@echo Updating $(@:.sync=)
+	@cd $(@:.sync=); git checkout master && git merge parc_upstream/master && git push
+
 
 clobber: distclean
 	@rm -rf ${CONFIGURE_CACHE_FILE}
