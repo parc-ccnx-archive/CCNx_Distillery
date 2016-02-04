@@ -142,10 +142,11 @@ ${modules_nuke}:
 		git clean -dfx && git reset --hard
 
 sync: ${modules_sync}
+
 	
-${modules_sync}:
+${modules_sync}: ${DISTILLERY_ROOT_DIR}/tools/syncWithMaster
 	@echo Updating $(@:.sync=)
-	@cd $(@:.sync=); git checkout master && git merge parc_upstream/master && git push
+	@cd $(@:.sync=); ${DISTILLERY_ROOT_DIR}/tools/syncWithMaster
 
 
 clobber: distclean
