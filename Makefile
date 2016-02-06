@@ -176,9 +176,7 @@ check: ${modules_check}
 step: ${modules_step}
 
 status: ${modules_status}
-	@echo '===================================================================='
-	@/bin/echo -n "Distillery : "
-	@git rev-parse HEAD 2> /dev/null ; git status -s --branch 
+	@tools/getStatus ../CCNx_Distillery 
 
 fetch: ${modules_fetch}
 
