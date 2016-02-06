@@ -123,13 +123,8 @@ ${modules_step}:
 	@$(MAKE) $(@:.step=.check)			# make Module.check
 	@$(MAKE) $(@:.step=.install)		# make Module.install
 
-${modules_status}:
-	@echo '===================================================================='
-	@/bin/echo -n $(notdir $(@:.status=)) ": "
-	@# cd Module_dir; git rev-parse....; git status -s --branch
-	@cd $(@:.status=); \
-		git rev-parse HEAD 2> /dev/null ;\
-		git status -s --branch 
+${modules_status}: tools/getStatus
+	@tools/getStatus $(@:.status=)
 
 ${modules_fetch}:
 	@#cd Module_dir; git fetch
@@ -181,9 +176,7 @@ check: ${modules_check}
 step: ${modules_step}
 
 status: ${modules_status}
-	@echo '===================================================================='
-	@/bin/echo -n "Distillery : "
-	@git rev-parse HEAD 2> /dev/null ; git status -s --branch 
+	@tools/getStatus ../CCNx_Distillery 
 
 fetch: ${modules_fetch}
 
