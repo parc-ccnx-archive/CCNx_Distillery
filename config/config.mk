@@ -105,7 +105,7 @@ CMAKE_MAKE_TEST_ARGS?="ARGS=-j16"
 #  DEBUG           eg. -O0 -g 
 #  RELEASE         eg. -O3 -NDEBUG
 #  RELWITHDEBINFO  eg  -O2 -g -NDEBUG
-CMAKE_BUILD_TYPE_FLAG?=-DCMAKE_BUILD_TYPE=DEBUG
+#CMAKE_BUILD_TYPE_FLAG?=-DCMAKE_BUILD_TYPE=RELEASE
 
 # DISABLE_UBUNTU_PACKAGE_CHECK
 # This setting disables checking that the ubuntu packages are installed. In the default
