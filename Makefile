@@ -136,7 +136,7 @@ ${modules_nuke}:
 	@cd $(@:.nuke=); \
 		git clean -dfx && git reset --hard
 
-sync: ${modules_sync} distillery-sync
+sync: update ${modules_sync} distillery-sync
 
 distillery-sync:
 	@${DISTILLERY_ROOT_DIR}/tools/syncWithMaster
@@ -191,20 +191,7 @@ dependencies.clean:
 dependencies.clobber:
 	@${MAKE} -C dependencies clobber
 
-pre-requisites: cmake-check
-
-CMAKE_VERSION := $(shell PATH=${PATH} cmake --version | grep "cmake version 3" | cut -c 15-15)
-cmake-check:
-	@if [ ! x${CMAKE_VERSION} = x3 ]; then \
-	  make cmake-notfound ; exit 1 ; \
-	fi
-
-cmake-notfound:
-	@echo "ERROR - CMake 3.x not found."
-	@echo "  Many of the modules used by Distillery require CMake 3.x"
-	@echo "  Please install cmake 3.x. You can do this manually or just"
-	@echo "  run make dependencies"
-
+pre-requisites: 
 
 help:
 	@echo "Simple instructions: run \"make update step\""
