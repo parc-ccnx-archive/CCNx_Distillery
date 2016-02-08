@@ -136,7 +136,7 @@ ${modules_nuke}:
 	@cd $(@:.nuke=); \
 		git clean -dfx && git reset --hard
 
-sync: ${modules_sync} distillery-sync
+sync: update ${modules_sync} distillery-sync
 
 distillery-sync:
 	@${DISTILLERY_ROOT_DIR}/tools/syncWithMaster
