@@ -33,6 +33,7 @@ ${LIBCCNX_BUILD_DIR}/Makefile: ${LIBCCNX_SOURCE_DIR}/CMakeLists.txt ${DISTILLERY
 	    mkdir -p ${LIBCCNX_BUILD_DIR}
 	    cd ${LIBCCNX_BUILD_DIR}; \
 			cmake ${LIBCCNX_SOURCE_DIR} \
+			${CMAKE_BUILD_TYPE_FLAG} \
 		    -DCMAKE_INSTALL_PREFIX=${DISTILLERY_INSTALL_DIR}
 
 Libccnx-common.install: ${LIBCCNX_BUILD_DIR}/Makefile

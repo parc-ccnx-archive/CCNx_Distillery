@@ -33,6 +33,7 @@ ${METIS_BUILD_DIR}/Makefile: ${METIS_SOURCE_DIR}/CMakeLists.txt ${DISTILLERY_STA
 		mkdir -p ${METIS_BUILD_DIR}
 	    cd ${METIS_BUILD_DIR}; \
 			cmake ${METIS_SOURCE_DIR} \
+			${CMAKE_BUILD_TYPE_FLAG} \
 		    -DCMAKE_INSTALL_PREFIX=${DISTILLERY_INSTALL_DIR}
 
 Metis.install: ${METIS_BUILD_DIR}/Makefile

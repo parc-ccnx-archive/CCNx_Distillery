@@ -92,35 +92,20 @@ export CCNX_DEPENDENCIES
 # Distillery builds all the modules. 
 DISTILLERY_TOOLS_DIR?=${DISTILLERY_DEPENDENCIES_DIR}/build-tools
 
-# CONFIGURE_CACHE_FILE
-# File used by configure to cache results
-CONFIGURE_CACHE_FILE?=${DISTILLERY_ROOT_DIR}/.configure.cache
+# CMAKE_MAKE_TEST_ARGS="ARGS=-j16"
+# Tell CTest (via CMake) to run parallel tests (16)
+# To run only 1 test at a time run with -j1 or set it empty
+CMAKE_MAKE_TEST_ARGS?="ARGS=-j16"
 
-# CONFIGURE_CACHE_FLAG
-# This flag is used to cache the values out of configure
-CONFIGURE_CACHE_FLAG=--cache-file ${CONFIGURE_CACHE_FILE}
 
-# CONFIGURE_DEBUG_FLAG=--enable-debug
-# This flag is added to some configure calls to enable debugging. Basically it
-# turns on -g -O0
-# To disable redefined it empty
-CONFIGURE_DEBUG_FLAG?=--enable-debug
-
-# CONFIGURE_OPENSSL_FLAG
-# Flag to pass to configure if we need to define where openssl is
-CONFIGURE_OPENSSL_FLAG?=--with-openssl=${DISTILLERY_EXTERN_DIR} 
-
-# CONFIGURE_LIBEVENT_FLAG
-# Flag to pass to configure if we need to define where libevent is
-CONFIGURE_LIBEVENT_FLAG?=--with-libevent=${DISTILLERY_EXTERN_DIR} 
-
-CONFIGURE_INSTALL_FLAG=INSTALL="/usr/bin/install -C" 
-
-CMAKE_MAKE_TEST_ARGS="ARGS=-j16"
-
-# CONFIGURE_COVERAGE_FLAG
-# Flag to pass to configure to enable coverage
-#CONFIGURE_COVERAGE_FLAG?=--coverage
+# CMAKE_BUILD_TYPE_FLAG=-DCMAKE_BUILD_TYPE=DEBUG
+# The type of build we are doing.
+# set it to RELEASE if you want an optimized build  (-O3)
+# Options:
+#  DEBUG           eg. -O0 -g 
+#  RELEASE         eg. -O3 -NDEBUG
+#  RELWITHDEBINFO  eg  -O2 -g -NDEBUG
+#CMAKE_BUILD_TYPE_FLAG?=-DCMAKE_BUILD_TYPE=RELEASE
 
 # DISABLE_UBUNTU_PACKAGE_CHECK
 # This setting disables checking that the ubuntu packages are installed. In the default
