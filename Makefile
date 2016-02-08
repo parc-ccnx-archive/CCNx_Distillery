@@ -136,13 +136,14 @@ ${modules_nuke}:
 	@cd $(@:.nuke=); \
 		git clean -dfx && git reset --hard
 
-sync: update ${modules_sync} distillery-sync
+sync: distillery-sync ${modules_sync} 
 
-distillery-sync:
+distillery-sync: distillery-update
 	@${DISTILLERY_ROOT_DIR}/tools/syncWithMaster
 	
 ${modules_sync}: ${DISTILLERY_ROOT_DIR}/tools/syncWithMaster
 	@echo Updating $(@:.sync=)
+	@cd $(@:.sync=); git fetch --all
 	@cd $(@:.sync=); ${DISTILLERY_ROOT_DIR}/tools/syncWithMaster
 
 
@@ -167,6 +168,7 @@ update: distillery-update ${modules_init}
 distillery-update:
 	@echo "Fetching Distillery..."
 	@git fetch --all
+	@git pull
 
 distillery-upstream:
 	git remote add ${DISTILLERY_GITHUB_UPSTREAM_NAME} http://github.com/PARC/CCNx_Distillery
