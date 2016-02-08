@@ -138,7 +138,7 @@ ${modules_nuke}:
 
 sync: distillery-sync ${modules_sync} 
 
-distillery-sync: distillery-update
+distillery-sync: distillery-update ${DISTILLERY_ROOT_DIR}/tools/syncWithMaster
 	@${DISTILLERY_ROOT_DIR}/tools/syncWithMaster
 	
 ${modules_sync}: ${DISTILLERY_ROOT_DIR}/tools/syncWithMaster
