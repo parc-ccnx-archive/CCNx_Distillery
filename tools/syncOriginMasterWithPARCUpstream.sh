@@ -54,13 +54,30 @@ if [ $? -eq 0 ]; then
 fi
 
 BRANCH=`git symbolic-ref --short HEAD`
-git checkout master && git merge parc_upstream/master && git push
-STATUS=$?
-if [ $? -eq 0 ]; then
-    echo "  - master succesfully synced with parc_upstream/master"
+
+if [ x'master' != x$BRANCH ]; then
+    STATUS= git checkout master
 fi
 
-echo "  - Switching back to branch <$BRANCH> in $CWD"
-git checkout $BRANCH
+if [ $? -ne 0 ]; then
+    echo " "
+    echo "  - ######################################################################"
+    echo "  - Could not switch to master. Could not sync $CWD"
+    echo "  - ######################################################################"
+    echo " "
+    exit $STATUS
+fi
+
+git merge parc_upstream/master && git push
+
+STATUS=$?
+if [ $? -eq 0 ]; then
+    echo "  - Master succesfully synced with parc_upstream/master"
+fi
+
+if [ x'master' != x$BRANCH ]; then
+    echo "  - Switching back to branch <$BRANCH> in $CWD"
+    STATUS= git checkout $BRANCH
+fi
 
 exit $STATUS
