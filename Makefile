@@ -147,7 +147,7 @@ distillery-sync: distillery-update ${SYNC_TO_UPSTREAM_SCRIPT}
 ${modules_sync}: ${SYNC_TO_UPSTREAK_SCRIPT}
 	@echo Updating $(@:.sync=)
 	@cd $(@:.sync=); git fetch --all
-	@cd $(@:.sync=); {SYNC_TO_UPSTREAM_SCRIPT}
+	@cd $(@:.sync=); ${SYNC_TO_UPSTREAM_SCRIPT}
 
 clobber: distclean
 	@rm -rf ${CONFIGURE_CACHE_FILE}
