@@ -35,32 +35,15 @@
 # If you were on a different branch than master, you should still be on
 # that branch when the script exits.
 
-CWD=`pwd`
-
-echo "Syncing $CWD origin/master with parc_upstream/master"
-
-# First, check if there is a parc_upstream remote at all
-git remote | grep parc_upstream > /dev/null
+git remote show parc_upstream > /dev/null
 if [ $? -ne 0 ]; then
-    echo "  - No parc_upstream remote found in $CWD - skipping sync"
-    exit 0
-fi
-
-# Now check that origin does not point to a PARC repo
-git remote show origin | grep 'github.com/PARC/'
-if [ $? -eq 0 ]; then
-    echo "  - Origin points to a PARC repo - skipping sync to avoid accidental pushes."
-    exit 0
+    exit $?
 fi
 
 BRANCH=`git symbolic-ref --short HEAD`
+echo "Currently on " $BRANCH
 git checkout master && git merge parc_upstream/master && git push
 STATUS=$?
-if [ $? -eq 0 ]; then
-    echo "  - master succesfully synced with parc_upstream/master"
-fi
-
-echo "  - Switching back to branch <$BRANCH> in $CWD"
 git checkout $BRANCH
 
 exit $STATUS
