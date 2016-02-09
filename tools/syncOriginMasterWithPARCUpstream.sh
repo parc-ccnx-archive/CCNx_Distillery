@@ -47,7 +47,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Now check that origin does not point to a PARC repo
-git remote show origin | grep 'github.com/PARC/'
+git remote show origin | grep 'github.com/PARC/' > /dev/null
 if [ $? -eq 0 ]; then
     echo "  - Origin points to a PARC repo - skipping sync to avoid accidental pushes."
     exit 0
