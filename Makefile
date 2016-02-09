@@ -138,14 +138,16 @@ ${modules_nuke}:
 
 sync: distillery-sync ${modules_sync} 
 
-distillery-sync: distillery-update ${DISTILLERY_ROOT_DIR}/tools/syncWithMaster
-	@${DISTILLERY_ROOT_DIR}/tools/syncWithMaster
+# This is the script we use to sync each repo's origin/master with parc_upstream/master.
+SYNC_TO_UPSTREAM_SCRIPT=syncOriginMasterWithPARCUpstream
+
+distillery-sync: distillery-update ${DISTILLERY_ROOT_DIR}/tools/${SYNC_TO_UPSTREAM_SCRIPT}
+	@${DISTILLERY_ROOT_DIR}/tools/${SYNC_TO_UPSTREAM_SCRIPT}
 	
-${modules_sync}: ${DISTILLERY_ROOT_DIR}/tools/syncWithMaster
+${modules_sync}: ${DISTILLERY_ROOT_DIR}/tools/${SYNC_TO_UPSTREAK_SCRIPT}
 	@echo Updating $(@:.sync=)
 	@cd $(@:.sync=); git fetch --all
-	@cd $(@:.sync=); ${DISTILLERY_ROOT_DIR}/tools/syncWithMaster
-
+	@cd $(@:.sync=); ${DISTILLERY_ROOT_DIR}/tools/${SYNC_TO_UPSTREAM_SCRIPT}
 
 clobber: distclean
 	@rm -rf ${CONFIGURE_CACHE_FILE}
