@@ -173,7 +173,7 @@ distillery-update:
 	@git pull
 
 distillery-upstream:
-	git remote add ${DISTILLERY_GITHUB_UPSTREAM_NAME} http://github.com/PARC/CCNx_Distillery
+	git remote add ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${DISTILLERY_GITHUB_UPSTREAM_URL}/CCNx_Distillery
 
 check: ${modules_check}
 
