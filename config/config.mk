@@ -28,17 +28,21 @@
 #DISTILLERY_GITHUB_SERVER=github.com
 # This is the github server. Most people won't change it, however, you may want 
 # to change it to your local github enterprise.
-DISTILLERY_GITHUB_SERVER=github.com
-
-#DISTILLERY_GITHUB_UPSTREAM_NAME=parc_upstream
-# This is the name to use for the upstream in the repositories
-DISTILLERY_GITHUB_UPSTREAM_NAME?=parc_upstream
+DISTILLERY_GITHUB_SERVER?=github.com
 
 # DISTILLERY_GITHUB_USER?=PARC
 # This is the user that will be used to generate the module github URLs.
 # You should set this in your local config to your GitHub user if you wish to
 # work on the code
 DISTILLERY_GITHUB_USER?=PARC
+
+#DISTILLERY_GITHUB_UPSTREAM_NAME=parc_upstream
+# This is the name to use for the upstream in the repositories
+DISTILLERY_GITHUB_UPSTREAM_NAME?=parc_upstream
+
+#DISTILLERY_GITHUB_UPSTREAM_URL=git://github.com/PARC
+# The URL of the github upstream for the repositories
+DISTILLERY_GITHUB_UPSTREAM_URL?=git://github.com/PARC
 
 # DISTILLERY_ROOT_DIR=/path/to/root/dir
 # This is the root directory of the Distillery distribution. Many other paths depend
