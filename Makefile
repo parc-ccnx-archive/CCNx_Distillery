@@ -144,7 +144,7 @@ SYNC_TO_UPSTREAM_SCRIPT=${DISTILLERY_ROOT_DIR}/tools/syncOriginMasterWithPARCUps
 distillery-sync: distillery-update ${SYNC_TO_UPSTREAM_SCRIPT}
 	@${SYNC_TO_UPSTREAM_SCRIPT}
 	
-${modules_sync}: ${SYNC_TO_UPSTREAK_SCRIPT}
+${modules_sync}: ${SYNC_TO_UPSTREAM_SCRIPT}
 	@echo Updating $(@:.sync=)
 	@cd $(@:.sync=); git fetch --all
 	@cd $(@:.sync=); ${SYNC_TO_UPSTREAM_SCRIPT}
