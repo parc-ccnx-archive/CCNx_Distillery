@@ -106,6 +106,7 @@ modules_init=$(modules:=.init)
 modules_check=$(modules:=.check)
 modules_step=$(modules:=.step)
 modules_fetch=$(modules_dir:=.fetch)
+modules_branch=$(modules_dir:=.branch)
 modules_status=$(modules_dir:=.status)
 modules_nuke=$(modules_dir:=.nuke)
 modules_sync=$(modules_dir:=.sync)
@@ -126,10 +127,30 @@ ${modules_step}:
 ${modules_status}: tools/getStatus
 	@tools/getStatus $(@:.status=)
 
+distillery.fetch:
+	@echo --------------------------------------------
+	@echo Distillery
+	@git fetch --all
+
 ${modules_fetch}:
+	@echo --------------------------------------------
+	@echo $(@:.fetch=)
 	@#cd Module_dir; git fetch
 	@cd $(@:.fetch=); \
 		git fetch --all
+
+${modules_branch}:
+	@echo --------------------------------------------
+	@echo $(@:.branch=)
+	@cd $(@:.branch=); git branch -avv
+	@echo
+
+distillery.branch:
+	@echo --------------------------------------------
+	@echo Distillery
+	@git branch -av
+	@echo
+
 
 ${modules_nuke}:
 	@#cd Module_dir; git nuke
@@ -182,7 +203,9 @@ step: ${modules_step}
 status: ${modules_status}
 	@tools/getStatus ../CCNx_Distillery 
 
-fetch: ${modules_fetch}
+fetch: ${modules_fetch} distillery.fetch
+
+branch: ${modules_branch} distillery.branch
 
 nuke-all-modules: ${modules_nuke}
 
