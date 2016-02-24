@@ -102,48 +102,22 @@ endif
 # We're going to create lists of targets as convenience
 modules_clean=$(modules:=.clean)
 modules_distclean=$(modules:=.distclean)
-modules_init=$(modules:=.init)
+modules_update=$(modules:=.update)
 modules_check=$(modules:=.check)
 modules_step=$(modules:=.step)
-modules_fetch=$(modules_dir:=.fetch)
-modules_branch=$(modules_dir:=.branch)
-modules_status=$(modules_dir:=.status)
-modules_nuke=$(modules_dir:=.nuke)
-modules_sync=$(modules_dir:=.sync)
+modules_fetch=$(modules:=.fetch)
+modules_branch=$(modules:=.branch)
+modules_status=$(modules:=.status)
+modules_nuke=$(modules:=.nuke)
+modules_sync=$(modules:=.sync)
 
 # These are the basic build rules. They will call the module specific rules
 install-all: install-directories pre-requisites ${modules}
-
-# If somebody calls "make Module", we will build and install it
-${modules}:
-	@$(MAKE) $(@:=.build)				# make Module.build
-	@$(MAKE) $(@:=.install)				# make Module.install
-
-${modules_step}:
-	@$(MAKE) $(@:.step=.build)			# make Module.build
-	@$(MAKE) $(@:.step=.check)			# make Module.check
-	@$(MAKE) $(@:.step=.install)		# make Module.install
-
-${modules_status}: tools/getStatus
-	@tools/getStatus $(@:.status=)
 
 distillery.fetch:
 	@echo --------------------------------------------
 	@echo Distillery
 	@git fetch --all
-
-${modules_fetch}:
-	@echo --------------------------------------------
-	@echo $(@:.fetch=)
-	@#cd Module_dir; git fetch
-	@cd $(@:.fetch=); \
-		git fetch --all
-
-${modules_branch}:
-	@echo --------------------------------------------
-	@echo $(@:.branch=)
-	@cd $(@:.branch=); git branch -avv
-	@echo
 
 distillery.branch:
 	@echo --------------------------------------------
@@ -151,25 +125,11 @@ distillery.branch:
 	@git branch -av
 	@echo
 
-
-${modules_nuke}:
-	@#cd Module_dir; git nuke
-	@cd $(@:.nuke=); \
-		git clean -dfx && git reset --hard
-
 sync: distillery-sync ${modules_sync} 
 
-# This is the script we use to sync each repo's origin/master with parc_upstream/master.
-SYNC_TO_UPSTREAM_SCRIPT=${DISTILLERY_ROOT_DIR}/tools/syncOriginMasterWithPARCUpstream
-
-distillery-sync: distillery-update ${SYNC_TO_UPSTREAM_SCRIPT}
-	@${SYNC_TO_UPSTREAM_SCRIPT}
+distillery-sync: distillery-update ${DISTILLERY_ROOT_DIR}/tools/syncOriginMasterWithPARCUpstream
+	@${DISTILLERY_ROOT_DIR}/tools/syncOriginMasterWithPARCUpstream
 	
-${modules_sync}: ${SYNC_TO_UPSTREAM_SCRIPT}
-	@echo Updating $(@:.sync=)
-	@cd $(@:.sync=); git fetch --all
-	@cd $(@:.sync=); ${SYNC_TO_UPSTREAM_SCRIPT}
-
 clobber: distclean
 	@rm -rf ${CONFIGURE_CACHE_FILE}
 	@rm -rf ${DISTILLERY_INSTALL_DIR}/bin
@@ -186,7 +146,7 @@ distclean:
 	@rm -rf ${DISTILLERY_BUILD_DIR}
 	@rm -rf report.txt
 
-update: distillery-update ${modules_init}
+update: distillery-update ${modules_update}
 
 distillery-update:
 	@echo "Fetching Distillery..."
@@ -282,8 +242,15 @@ distillery.checkout.error:
 	@echo ===========================================================
 	@echo
 
+
 info:
-	@echo ------ Distillery Info ------
+	@echo "############ Distillery Info ##################"
+	@${MAKE} env
+
+
+# env produces shell interpretable output. It is read by some scripts.
+# DO NOT ALTER THE FORMAT
+env:
 	@echo DISTILLERY_ROOT_DIR=${DISTILLERY_ROOT_DIR}
 	@echo DISTILLERY_DEFAULT_CONFIG=${DISTILLERY_DEFAULT_CONFIG}
 	@echo DISTILLERY_LOCAL_CONFIG=${DISTILLERY_LOCAL_CONFIG}
@@ -295,11 +262,12 @@ info:
 	@echo DISTILLERY_DEPENDENCIES_DIR=${DISTILLERY_DEPENDENCIES_DIR}
 	@echo DISTILLERY_EXTERN_DIR=${DISTILLERY_EXTERN_DIR}
 	@echo DISTILLERY_TOOLS_DIR=${DISTILLERY_TOOLS_DIR}
-	@echo DISTILLERY_GITHUB_USER=${DISTILLERY_GITHUB_USER}
-	@echo DISTILLERY_GITHUB_SERVER=${DISTILLERY_GITHUB_SERVER}
+	@echo DISTILLERY_GITHUB_URL=${DISTILLERY_GITHUB_URL}
+	@echo DISTILLERY_GITHUB_URL_USER=${DISTILLERY_GITHUB_URL_USER}
+	@echo DISTILLERY_GITHUB_UPSTREAL_URL=${DISTILLERY_GITHUB_UPSTREAM_URL}
+	@echo CCNX_DEPENDENCIES=${CCNX_DEPENDENCIES}
 	@echo LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
 	@echo LD_RUN_PATH=${LD_RUN_PATH}
-	@echo FOUNDATION_HOME=${FOUNDATION_HOME}
 	@echo CCNX_HOME=${CCNX_HOME}
 	@echo PATH=${PATH}
 

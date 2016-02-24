@@ -25,24 +25,22 @@
 # 
 ###############################################################################
 
-#DISTILLERY_GITHUB_SERVER=github.com
-# This is the github server. Most people won't change it, however, you may want 
-# to change it to your local github enterprise.
-DISTILLERY_GITHUB_SERVER?=github.com
+#DISTILLERY_GITHUB_URL
+# The base URL from where modules will be checked out. 
+# Note that this must include the trailing character
+DISTILLERY_GITHUB_URL?=https://github.com/
 
-# DISTILLERY_GITHUB_USER?=PARC
-# This is the user that will be used to generate the module github URLs.
-# You should set this in your local config to your GitHub user if you wish to
-# work on the code
-DISTILLERY_GITHUB_USER?=PARC
-
-#DISTILLERY_GITHUB_UPSTREAM_NAME=parc_upstream
-# This is the name to use for the upstream in the repositories
-DISTILLERY_GITHUB_UPSTREAM_NAME?=parc_upstream
+#DISTILLERY_GITHUB_URL_USER=PARC
+# The user where we check the repositories from
+DISTILLERY_GITHUB_URL_USER?=PARC
 
 #DISTILLERY_GITHUB_UPSTREAM_URL=git://github.com/PARC
 # The URL of the github upstream for the repositories
 DISTILLERY_GITHUB_UPSTREAM_URL?=git://github.com/PARC
+
+#DISTILLERY_GITHUB_UPSTREAM_NAME?=parc_upstream
+# The name to give this upstream
+DISTILLERY_GITHUB_UPSTREAM_NAME?=parc_upstream
 
 # DISTILLERY_ROOT_DIR=/path/to/root/dir
 # This is the root directory of the Distillery distribution. Many other paths depend
@@ -51,17 +49,12 @@ DISTILLERY_GITHUB_UPSTREAM_URL?=git://github.com/PARC
 # shell.
 DISTILLERY_ROOT_DIR?=$(shell pwd)
 
-# This is the root directory where things are built. Currently not all modules
-# support being built in a separate directory but we want to have the variable
-# ready to switch over to out-of-tree compiles
+# This is the directory where things are built. 
+# Note that if some modules don't support off-tree builds you may have problems
 DISTILLERY_BUILD_DIR?=${DISTILLERY_ROOT_DIR}/build
-#DISTILLERY_BUILD_DIR?=${DISTILLERY_ROOT_DIR}
 
-# Directories for the different module categories
-FOUNDATION_SOURCE_DIR  =  ${DISTILLERY_ROOT_DIR}/src
-FRAMEWORK_SOURCE_DIR   =  ${DISTILLERY_ROOT_DIR}/src
-LANGUAGES_SOURCE_DIR   =  ${DISTILLERY_ROOT_DIR}/src
-FORWARDER_SOURCE_DIR   =  ${DISTILLERY_ROOT_DIR}/src
+# This is the directory where the source is checked out.
+DISTILLERY_SOURCE_DIR?=${DISTILLERY_ROOT_DIR}/src
 
 # MAKE_BUILD_FLAGS
 # Flags to pass to make when building the projects. This is mostly used for
@@ -126,26 +119,7 @@ CMAKE_MAKE_TEST_ARGS?="ARGS=-j16"
 # NOTE: Any value is considered true!
 #DISABLE_UBUNTU_CHECK=True
 
-# FOUNDATION_HOME
-# This variable is used by scripts to know where to find the installed
-# Foundation libraries and software. 
-FOUNDATION_HOME=${DISTILLERY_INSTALL_DIR}
-
 # CCNX_HOME
 # These variables are used by scripts to know where to find the installed
 # CCNX software and libaries.  They are also used by various packaging scripts.
 CCNX_HOME=${DISTILLERY_INSTALL_DIR}
-
-
-# ENABLE_ALL_MODULES_BY_DEFAULT
-# This will be the default value for modules (YES or NO).
-# Each module can be customized by setting the corresponding variable 
-# ENABLE_<MODULE> to either YES or NO to override the default.
-ENABLE_ALL_MODULES_BY_DEFAULT=YES
-
-
-# ENABLE_<MODULE>
-# Enable individual modules. This is useful when you dissable all modules by
-# default
-#ENABLE_LONGBOW=YES
-#ENABLE_LIBPARC=YES
