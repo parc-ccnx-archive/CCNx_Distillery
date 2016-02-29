@@ -75,13 +75,9 @@ $1.update: ${$1_GIT_CONFIG}
 	@cd ${$1_SOURCE_DIR} && git fetch --all && git pull
 	@echo
 
-${$1_GIT_CONFIG}:
-	@echo "###################################################################"
-	@echo "#  Cloning $1"
-	@echo "#    from ${$1_GIT_REPOSITORY}"
-	@git clone ${$1_GIT_REPOSITORY} ${$1_SOURCE_DIR}
-	@cd ${$1_SOURCE_DIR} && git remote add \
-	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${$1_GIT_UPSTREAM_REPOSITORY}
+${$1_GIT_CONFIG}: tools/bin/gitCloneOneOf tools/bin/gitAddUpstream
+	@tools/bin/gitCloneOneOf $1 ${$1_SOURCE_DIR} ${$1_GIT_REPOSITORY} ${$1_GIT_UPSTREAM_REPOSITORY}
+	@tools/bin/gitAddUpstream $1 ${$1_SOURCE_DIR} ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${$1_GIT_UPSTREAM_REPOSITORY}
 
 $1.build: ${$1_BUILD_DIR}/Makefile
 	${MAKE} ${MAKE_BUILD_FLAGS} -C ${$1_BUILD_DIR} 
@@ -94,6 +90,17 @@ $1.clean: ${$1_BUILD_DIR}/Makefile
 
 $1.distclean: 
 	rm -rf ${$1_BUILD_DIR}
+
+$1.info:
+	@echo "# $1 INFO "
+	@echo "$1_SOURCE_DIR = ${$1_SOURCE_DIR}"
+	@echo "$1_BUILD_DIR = ${$1_BUILD_DIR}"
+	@echo "$1_GIT_REPOSITORY = ${$1_GIT_REPOSITORY}"
+	@echo "$1_GIT_UPSTREAM_REPOSITORY = ${$1_GIT_UPSTREAM_REPOSITORY}"
+
+$1.gitstatus: tools/bin/gitStatus
+	@tools/bin/gitStatus $1 ${$1_SOURCE_DIR} ${$1_GIT_REPOSITORY} \
+	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${$1_GIT_UPSTREAM_REPOSITORY} 
 
 endef
 

@@ -42,6 +42,10 @@ DISTILLERY_GITHUB_UPSTREAM_URL?=git://github.com/PARC
 # The name to give this upstream
 DISTILLERY_GITHUB_UPSTREAM_NAME?=parc_upstream
 
+# DISTILLERY_GITHUB_UPSTREAM_REPO=${DISTILLERY_GITHUB_UPSTREAM_URL}/CCNx_Distillery
+# The upstream that we expect on Distillery itself.
+DISTILLERY_GITHUB_UPSTREAM_REPO?=${DISTILLERY_GITHUB_UPSTREAM_URL}/CCNx_Distillery
+
 # DISTILLERY_ROOT_DIR=/path/to/root/dir
 # This is the root directory of the Distillery distribution. Many other paths depend
 # on this. This file assumes that make is being run from the DISTILLERY

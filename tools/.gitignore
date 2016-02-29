@@ -2,3 +2,6 @@ syncWithMaster
 syncOriginMasterWithPARCUpstream
 getStatus
 parc
+bin/gitCloneOneOf
+bin/gitAddUpstream
+bin/gitStatus

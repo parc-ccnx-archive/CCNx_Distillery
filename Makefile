@@ -108,6 +108,7 @@ modules_step=$(modules:=.step)
 modules_fetch=$(modules:=.fetch)
 modules_branch=$(modules:=.branch)
 modules_status=$(modules:=.status)
+modules_gitstatus=$(modules:=.gitstatus)
 modules_nuke=$(modules:=.nuke)
 modules_sync=$(modules:=.sync)
 
@@ -154,7 +155,7 @@ distillery-update:
 	@git pull
 
 distillery-upstream:
-	git remote add ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${DISTILLERY_GITHUB_UPSTREAM_URL}/CCNx_Distillery
+	git remote add ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${DISTILLERY_GITHUB_UPSTREAM_REPO}
 
 check: ${modules_check}
 
@@ -162,6 +163,10 @@ step: ${modules_step}
 
 status: ${modules_status}
 	@tools/getStatus ../CCNx_Distillery 
+
+gitstatus: ${modules_gitstatus} tools/bin/gitStatus
+	@tools/bin/gitStatus CCNx_Distillery  `pwd` - \
+	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${DISTILLERY_GITHUB_UPSTREAM_REPO}
 
 fetch: ${modules_fetch} distillery.fetch
 
