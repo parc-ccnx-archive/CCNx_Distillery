@@ -128,8 +128,8 @@ distillery.branch:
 
 sync: distillery-sync ${modules_sync} 
 
-distillery-sync: distillery-update ${DISTILLERY_ROOT_DIR}/tools/syncOriginMasterWithPARCUpstream
-	@${DISTILLERY_ROOT_DIR}/tools/syncOriginMasterWithPARCUpstream
+distillery-sync: distillery-update ${DISTILLERY_ROOT_DIR}/tools/bin/syncOriginMasterWithPARCUpstream
+	@${DISTILLERY_ROOT_DIR}/tools/bin/syncOriginMasterWithPARCUpstream
 	
 clobber: distclean
 	@rm -rf ${CONFIGURE_CACHE_FILE}

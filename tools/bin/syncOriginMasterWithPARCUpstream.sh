@@ -37,34 +37,26 @@
 
 CWD=`pwd`
 
-# You should not be syncing if you are set to the github.com/PARC or
-# githubenterprise.com/CCNX users
-declare -a READ_ONLY_REMOTES=('.com/PARC/' '.com/CCNX/')  # NO COMMAS
-
 # The shortname of the repo dir we're syncing
 REPO_DIR_NAME=$(basename $CWD)
 
 # A place to send output to reduce the visual clutter
 OUTPUT=/dev/null
 
-echo "Syncing [$REPO_DIR_NAME] origin/master with parc_upstream/master"
+echo "$REPO_DIR_NAME - merging parc_upstream/master into master and origin/master"
 
-# First, check if there is a parc_upstream remote at all
-git remote | grep parc_upstream >> $OUTPUT
+ORIGIN=`git config --get remote.origin.url 2>$OUTPUT`
 if [ $? -ne 0 ]; then
-    echo "  - OK: [$REPO_DIR_NAME] update skipped."
+    echo "Skipped  [$REPO_DIR_NAME] No origin found."
     exit 0
 fi
 
-for _remote in "${READ_ONLY_REMOTES[@]}"
-do
-    # Now check that origin does not point to a PARC repo
-    git remote show origin | grep $_remote >> $OUTPUT
-    if [ $? -eq 0 ]; then
-        echo "  - OK: [$REPO_DIR_NAME] origin points to a PARC repo - skipping sync to avoid accidental pushes."
-        exit 0
-    fi
-done
+# Check if there is a parc_upstream remote at all
+PARC_UPSTREAM=`git config --get remote.parc_upstream.url 2>$OUTPUT`
+if [ $? -ne 0 ]; then
+    echo "$REPO_DIR_NAME - No parc_upstream found."
+    exit 0
+fi
 
 # Fetch ALL of the upstream remotes
 git fetch --all >> $OUTPUT
@@ -76,25 +68,29 @@ if [ x'master' != x$BRANCH ]; then
 fi
 
 if [ $? -ne 0 ]; then
-    echo " "
-    echo "  - ######################################################################"
-    echo "  - [$REPO_DIR_NAME] Could not switch to master. "
-    echo "  - Please commit any unsaved changes in your branch."
-    echo "  - ######################################################################"
-    echo " "
+    echo "$REPO_DIR_NAME "
+    echo "$REPO_DIR_NAME ##########################################################"
+    echo "$REPO_DIR_NAME Could not switch to master. "
+    echo "$REPO_DIR_NAME Please commit any unsaved changes in your branch."
+    echo "$REPO_DIR_NAME ##########################################################"
+    echo "$REPO_DIR_NAME "
     exit $?
 fi
 
 git merge parc_upstream/master >> $OUTPUT
 if [ $? -eq 0 ]; then
-    echo "  - OK: [$REPO_DIR_NAME] successfully synced with parc_upstream/master"
-    git push --porcelain 2>&1 >> $OUTPUT
+    echo "$REPO_DIR_NAME - parc_upstream/master successfully merged into master"
+
+    if [ $PARC_UPSTREAM != $ORIGIN ]; then
+        git push --porcelain 2>&1 >> $OUTPUT
+        echo "$REPO_DIR_NAME - master pushed to origin/master"
+    fi
 else
-    echo "  - Warning: [$REPO_DIR_NAME] was not able to be synced with parc_upstream/master"
+    echo "$REPO_DIR_NAME - WARNING - was not able to be synced with parc_upstream/master"
 fi
 
 if [ x'master' != x$BRANCH ]; then
-    echo "  - Switching back to branch <$BRANCH> in $REPO_DIR_NAME"
+    echo "$REPO_DIR_NAME - Switching back to branch <$BRANCH>"
     git checkout $BRANCH &> $OUTPUT
 fi
 

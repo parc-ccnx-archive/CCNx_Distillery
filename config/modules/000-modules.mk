@@ -67,10 +67,10 @@ $1.branch:
 $1.nuke:
 	@cd ${$1_SOURCE_DIR}; git clean -dfx && git reset --hard
 
-$1.sync: ${DISTILLERY_ROOT_DIR}/tools/syncOriginMasterWithPARCUpstream
-	@echo Updating $1
-	@cd ${$1_SOURCE_DIR}; git fetch --all
-	@cd ${$1_SOURCE_DIR}; ${DISTILLERY_ROOT_DIR}/tools/syncOriginMasterWithPARCUpstream
+$1.sync: ${DISTILLERY_ROOT_DIR}/tools/bin/syncOriginMasterWithPARCUpstream
+	@echo "-------------------------------------------------------------------"
+	@echo $1
+	@cd ${$1_SOURCE_DIR}; ${DISTILLERY_ROOT_DIR}/tools/bin/syncOriginMasterWithPARCUpstream
 
 $1.update: ${$1_GIT_CONFIG}
 	@echo "-------------------------------------------------------------------"
