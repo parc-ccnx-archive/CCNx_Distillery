@@ -191,10 +191,12 @@ help:
 	@echo "---- Basic build targets ----"
 	@echo "make help      - This help message"
 	@echo "make info      - Show basic information"
+	@echo "make status    - Show status of modules"
 	@echo "make update    - git clone and pull the different modules to the head of master"
+	@echo "make sync      - fetch all remotes, merge upstream master, push to origin master"
 	@echo "make step      - Module by module: configure, compile and install all software"
 	@echo "                  in the install directory (see make info) and run tests"
-	@echo "make all       - Configure, compile and install all software in Distillery/build"
+	@echo "make all       - Configure, compile and install all software in DISTILLERY_INSTALL_DIR"
 	@echo "make check     - Run all the tests"
 	@echo "make clobber   - Clean the build, remove the install software"
 	@echo 
@@ -203,6 +205,7 @@ help:
 	@echo "                       - You will lose all uncommited changes"
 	@echo "make clean     - Clean the build"
 	@echo "make distclean - Distclean the build"
+	@echo "make xcode     - Create xcode projects [only works on Mac]" 
 	@echo 
 	@echo "---- Basic module targets ----"
 	@echo "Module Directory = ${MODULES_DIRECTORY_DEFAULT}"
