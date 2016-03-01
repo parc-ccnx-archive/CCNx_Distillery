@@ -33,6 +33,10 @@
 # - Module_BUILD_DIR
 #   Location where the source will be built. Don't change this unless you have
 #   a very good reason to.
+# - Module_XCODE_DIR
+#   Location where to put the xcode project Defaults to
+#   ${DISTILLERY_XCODE_DIR}/Module
+
 
 
 define addCMakeModule

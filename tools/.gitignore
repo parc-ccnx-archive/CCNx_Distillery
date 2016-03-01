@@ -1,6 +1,5 @@
-syncWithMaster
-getStatus
 parc
+bin/getStatus
 bin/gitCloneOneOf
 bin/gitAddUpstream
 bin/gitStatus

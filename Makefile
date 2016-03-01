@@ -115,19 +115,6 @@ modules_sync=$(modules:=.sync)
 # These are the basic build rules. They will call the module specific rules
 install-all: install-directories pre-requisites ${modules}
 
-distillery.fetch:
-	@echo --------------------------------------------
-	@echo Distillery
-	@git fetch --all
-
-distillery.branch:
-	@echo --------------------------------------------
-	@echo Distillery
-	@git branch -av
-	@echo
-
-sync: distillery-sync ${modules_sync} 
-
 distillery-sync: distillery-update ${DISTILLERY_ROOT_DIR}/tools/bin/syncOriginMasterWithPARCUpstream
 	@${DISTILLERY_ROOT_DIR}/tools/bin/syncOriginMasterWithPARCUpstream
 	
@@ -147,8 +134,6 @@ distclean:
 	@rm -rf ${DISTILLERY_BUILD_DIR}
 	@rm -rf report.txt
 
-update: distillery-update ${modules_update}
-
 distillery-update:
 	@echo "Fetching Distillery..."
 	@git fetch --all
@@ -161,18 +146,9 @@ check: ${modules_check}
 
 step: ${modules_step}
 
-status: ${modules_status}
-	@tools/getStatus ../CCNx_Distillery 
-
-gitstatus: ${modules_gitstatus} tools/bin/gitStatus
-	@tools/bin/gitStatus CCNx_Distillery  `pwd` - \
-	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${DISTILLERY_GITHUB_UPSTREAM_REPO}
-
-fetch: ${modules_fetch} distillery.fetch
-
-branch: ${modules_branch} distillery.branch
-
-nuke-all-modules: ${modules_nuke}
+#gitstatus: ${modules_gitstatus} tools/bin/gitStatus
+#	@tools/bin/gitStatus CCNx_Distillery  `pwd` - \
+#	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${DISTILLERY_GITHUB_UPSTREAM_REPO}
 
 dependencies:
 	@${MAKE} -C dependencies
