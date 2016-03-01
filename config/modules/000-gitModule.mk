@@ -39,8 +39,6 @@ $(eval $1_BUILD_DIR?=${DISTILLERY_BUILD_DIR}/$1)
 $(eval $1_GIT_CONFIG?=${$1_SOURCE_DIR}/.git/config)
 $(eval $1_GIT_REPOSITORY?=${DISTILLERY_GITHUB_URL}${DISTILLERY_GITHUB_URL_USER}/$1)
 $(eval $1_GIT_UPSTREAM_REPOSITORY?=${DISTILLERY_GITHUB_UPSTREAM_URL}/$1)
-$(eval modules_dir+=${$1_SOURCE_DIR})
-$(eval modules+=$1)
 
 status: $1.status
 
