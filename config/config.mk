@@ -93,6 +93,12 @@ export CCNX_DEPENDENCIES
 # Distillery builds all the modules. 
 DISTILLERY_TOOLS_DIR?=${DISTILLERY_DEPENDENCIES_DIR}/build-tools
 
+# DISTILLERY_XCODE_DIR?=${DISTILLERY_ROOT_DIR}/xcode
+# Directory where distillery will create the xcode project files. This is done
+# via cmake's build system. Modules that don't use cmake won't have a way to
+# create this unless the Makefile provides a way.
+DISTILLERY_XCODE_DIR?=${DISTILLERY_ROOT_DIR}/xcode
+
 # CMAKE_MAKE_TEST_ARGS="ARGS=-j16"
 # Tell CTest (via CMake) to run parallel tests (16)
 # To run only 1 test at a time run with -j1 or set it empty

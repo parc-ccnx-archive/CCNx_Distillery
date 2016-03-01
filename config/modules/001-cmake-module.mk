@@ -37,6 +37,8 @@
 
 define addCMakeModule
 $(eval $(call addModule,$1))
+$(eval $1_XCODE_DIR?=${DISTILLERY_XCODE_DIR}/$1)
+$(eval modules_xcode+=$1)
 
 ${$1_BUILD_DIR}/Makefile: ${$1_SOURCE_DIR}/CMakeLists.txt ${DISTILLERY_STAMP}
 	    mkdir -p ${$1_BUILD_DIR}
@@ -51,5 +53,14 @@ ${$1_SOURCE_DIR}/CMakeLists.txt:
 
 $1.check: ${$1_BUILD_DIR}/Makefile
 	@${MAKE} ${MAKE_BUILD_FLAGS} -C ${$1_BUILD_DIR} test ${CMAKE_MAKE_TEST_ARGS}
+
+$1.xcode: 
+	@mkdir -p ${$1_XCODE_DIR}
+	@cd ${$1_XCODE_DIR} && cmake -G Xcode ${$1_SOURCE_DIR}
+
+$1.xcodeopen: $1.xcode
+	@open ${$1_XCODE_DIR}/$1.xcodeproj
+
+xcode: $1.xcode
 
 endef

@@ -3,6 +3,7 @@ build
 usr
 .distillery.stamp
 src
+xcode
 
 # Temporary files
 *.swp
