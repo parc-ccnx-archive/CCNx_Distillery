@@ -179,9 +179,12 @@ help:
 	@echo "---- Advanced targets ----"
 	@echo "make nuke-all-modules - DANGEROUS! Clean all the modules to git checkout (git clean -dfx)"
 	@echo "                       - You will lose all uncommited changes"
-	@echo "make clean     - Clean the build"
-	@echo "make distclean - Distclean the build"
-	@echo "make xcode     - Create xcode projects [only works on Mac]" 
+	@echo "make clean       - Clean the build"
+	@echo "make distclean   - Distclean the build"
+	@echo "make xcode       - Create xcode projects [only works on Mac]" 
+	@echo "make all-debug   - make clobber all with DEBUG on"
+	@echo "make all-release - make clobber all optimized"
+	@echo "make all-nopants - make clobber all optimized with no validation (use at your own risk)"
 	@echo 
 	@echo "---- Basic module targets ----"
 	@echo "Module Directory = ${MODULES_DIRECTORY_DEFAULT}"
@@ -191,6 +194,18 @@ help:
 
 ${DISTILLERY_STAMP}: ${REBUILD_DEPENDS}
 	touch $@ 
+
+all-nopants:
+	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=NOPANTS" ${MAKE} clobber all
+
+all-debug:
+	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=DEBUG" ${MAKE} clobber all
+
+all-release:
+	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=RELEASE" ${MAKE} clobber all
+
+all-releasedebug:
+	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=RELWITHDEBINFO" ${MAKE} clobber all
 
 install-directories:
 	@mkdir -p ${DISTILLERY_INSTALL_DIR}/include
