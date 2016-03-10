@@ -101,22 +101,14 @@ endif
 
 # We're going to create lists of targets as convenience
 modules_clean=$(modules:=.clean)
-modules_distclean=$(modules:=.distclean)
-modules_update=$(modules:=.update)
 modules_check=$(modules:=.check)
 modules_step=$(modules:=.step)
-modules_fetch=$(modules:=.fetch)
-modules_branch=$(modules:=.branch)
-modules_status=$(modules:=.status)
-modules_gitstatus=$(modules:=.gitstatus)
-modules_nuke=$(modules:=.nuke)
-modules_sync=$(modules:=.sync)
 
 # These are the basic build rules. They will call the module specific rules
 install-all: install-directories pre-requisites ${modules}
 
-distillery-sync: distillery-update ${DISTILLERY_ROOT_DIR}/tools/bin/syncOriginMasterWithPARCUpstream
-	@${DISTILLERY_ROOT_DIR}/tools/bin/syncOriginMasterWithPARCUpstream
+#distillery-sync: distillery-update ${DISTILLERY_ROOT_DIR}/tools/bin/syncOriginMasterWithPARCUpstream
+#	@${DISTILLERY_ROOT_DIR}/tools/bin/syncOriginMasterWithPARCUpstream
 	
 clobber: distclean
 	@rm -rf ${CONFIGURE_CACHE_FILE}
@@ -134,10 +126,10 @@ distclean:
 	@rm -rf ${DISTILLERY_BUILD_DIR}
 	@rm -rf report.txt
 
-distillery-update:
-	@echo "Fetching Distillery..."
-	@git fetch --all
-	@git pull
+#distillery-update:
+#	@echo "Fetching Distillery..."
+#	@git fetch --all
+#	@git pull
 
 distillery-upstream:
 	git remote add ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${DISTILLERY_GITHUB_UPSTREAM_REPO}
@@ -145,10 +137,6 @@ distillery-upstream:
 check: ${modules_check}
 
 step: ${modules_step}
-
-#gitstatus: ${modules_gitstatus} tools/bin/gitStatus
-#	@tools/bin/gitStatus CCNx_Distillery  `pwd` - \
-#	  ${DISTILLERY_GITHUB_UPSTREAM_NAME} ${DISTILLERY_GITHUB_UPSTREAM_REPO}
 
 dependencies:
 	@${MAKE} -C dependencies
@@ -187,8 +175,9 @@ help:
 	@echo "make all-nopants - make clobber all optimized with no validation (use at your own risk)"
 	@echo 
 	@echo "---- Basic module targets ----"
-	@echo "Module Directory = ${MODULES_DIRECTORY_DEFAULT}"
-	@echo "Modules Loaded   = ${modules}"
+	@echo "Module Directory  = ${MODULES_DIRECTORY_DEFAULT}"
+	@echo "Modules Loaded    = ${modules}"
+	@echo "GitModules Loaded = ${gitmodules}"
 	@echo "Per-module targets: \"Module\" \"Module.distclean\" \"Module.nuke\" "
 
 
