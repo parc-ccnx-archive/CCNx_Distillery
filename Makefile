@@ -164,6 +164,8 @@ help:
 	@echo "make check     - Run all the tests"
 	@echo "make clobber   - Clean the build, remove the install software"
 	@echo 
+	@echo "make sanity    - Run simple sanity checks to test that the build is functional"
+	@echo 
 	@echo "---- Advanced targets ----"
 	@echo "make nuke-all-modules - DANGEROUS! Clean all the modules to git checkout (git clean -dfx)"
 	@echo "                       - You will lose all uncommited changes"
