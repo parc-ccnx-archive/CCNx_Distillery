@@ -53,9 +53,14 @@ DISTILLERY_GITHUB_UPSTREAM_REPO?=${DISTILLERY_GITHUB_UPSTREAM_URL}/CCNx_Distille
 # shell.
 DISTILLERY_ROOT_DIR?=$(shell pwd)
 
+# This is a variable that can be used to multiplex the build.
+# If you set this variable the default output directories will have this
+# appended to them
+DISTILLERY_BUILD_NAME?=
+
 # This is the directory where things are built. 
 # Note that if some modules don't support off-tree builds you may have problems
-DISTILLERY_BUILD_DIR?=${DISTILLERY_ROOT_DIR}/build
+DISTILLERY_BUILD_DIR?=${DISTILLERY_ROOT_DIR}/build${DISTILLERY_BUILD_NAME}
 
 # This is the directory where the source is checked out.
 DISTILLERY_SOURCE_DIR?=${DISTILLERY_ROOT_DIR}/src
@@ -69,7 +74,7 @@ MAKE_BUILD_FLAGS?=-j8
 # This is the directory where all the ccn software will be installed. This
 # directory will be DELETED if you do a make clobber. Do not treat this the
 # same way you would treat a system install directory.
-DISTILLERY_INSTALL_DIR?=${DISTILLERY_ROOT_DIR}/usr
+DISTILLERY_INSTALL_DIR?=${DISTILLERY_ROOT_DIR}/usr${DISTILLERY_BUILD_NAME}
 
 # DISTILLERY_DEPENDENCIES_DIR=/path/to/dependencies/dir
 # This is the path to the dependencies directory. It is used as the base for
