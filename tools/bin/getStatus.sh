@@ -22,7 +22,7 @@ echo '===================================================================='
 if [ "x${PARC_MASTER_IN_BRANCH}" != "x" ]; then
   # This branch is master OR ahead of master
   if [ x${CURRENT_SHA} = x${UPSTREAM_SHA} ]; then
-    echo "PARC    ${GIT_REPO} ${CURRENT_BRANCH}"
+    echo "PARC    ${GIT_REPO} ${CURRENT_BRANCH} ${CURRENT_SHA}::${UPSTREAM_SHA}"
   else
     echo "PARC++  ${GIT_REPO} ${CURRENT_BRANCH} ${CURRENT_SHA}::${UPSTREAM_SHA}"
   fi
