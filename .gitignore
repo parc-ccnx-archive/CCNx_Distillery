@@ -2,9 +2,12 @@
 build
 usr
 .distillery.stamp
-src
+src/*
+!src/CMakeLists.txt
 xcode
 
 # Temporary files
 *.swp
 *~
+build-debug
+usr-debug

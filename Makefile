@@ -109,7 +109,7 @@ install-all: install-directories pre-requisites ${modules}
 
 #distillery-sync: distillery-update ${DISTILLERY_ROOT_DIR}/tools/bin/syncOriginMasterWithPARCUpstream
 #	@${DISTILLERY_ROOT_DIR}/tools/bin/syncOriginMasterWithPARCUpstream
-	
+
 clobber: distclean
 	@rm -rf ${CONFIGURE_CACHE_FILE}
 	@rm -rf ${DISTILLERY_INSTALL_DIR}/bin
@@ -117,6 +117,8 @@ clobber: distclean
 	@rm -rf ${DISTILLERY_INSTALL_DIR}/include
 	@rm -rf ${DISTILLERY_INSTALL_DIR}/share
 	@rm -rf ${DISTILLERY_INSTALL_DIR}/etc
+	@rm -rf ${DISTILLERY_INSTALL_DIR}-debug
+	@rm -rf ${DISTILLERY_XCODE_DIR}
 	@rm -rf .*.stamp
 
 clean: ${modules_clean}
@@ -124,6 +126,7 @@ clean: ${modules_clean}
 
 distclean: 
 	@rm -rf ${DISTILLERY_BUILD_DIR}
+	@rm -rf ${DISTILLERY_BUILD_DIR}-debug
 	@rm -rf report.txt
 
 #distillery-update:
@@ -190,7 +193,7 @@ all-nopants:
 	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=NOPANTS" DISTILLERY_BUILD_NAME=-nopants ${MAKE} clobber all
 
 all-debug:
-	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=DEBUG" DISTILLERY_BUILD_NAME=-debug ${MAKE} clobber all
+	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=DEBUG" DISTILLERY_BUILD_NAME=-debug ${MAKE} clobber all MasterIDE.build
 
 all-release:
 	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=RELEASE" DISTILLERY_BUILD_NAME=-release ${MAKE} clobber all
