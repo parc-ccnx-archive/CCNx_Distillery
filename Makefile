@@ -195,6 +195,9 @@ all-nopants:
 all-debug:
 	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=DEBUG" DISTILLERY_BUILD_NAME=-debug ${MAKE} clobber all MasterIDE.build
 
+step-debug: 
+	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=DEBUG" DISTILLERY_BUILD_NAME=-debug ${MAKE} step
+
 all-release:
 	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=RELEASE" DISTILLERY_BUILD_NAME=-release ${MAKE} clobber all
 
