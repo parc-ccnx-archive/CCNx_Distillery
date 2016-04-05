@@ -2,7 +2,11 @@ $(eval Master_SOURCE_DIR?=${DISTILLERY_SOURCE_DIR})
 $(eval Master_XCODE_DIR?=${DISTILLERY_XCODE_DIR})
 $(eval modules_xcode+=MasterIDE)
 
-MasterIDE.build: debug-all
+${Master_SOURCE_DIR}/CMakeLists.txt:
+	@echo "No CMakeLists.txt in ${Master_SOURCE_DIR}, copying config/MasterIDE-CMakeLists.txt"
+	@cp config/MasterIDE-CMakeLists.txt ${Master_SOURCE_DIR}/CMakeLists.txt
+
+MasterIDE.build: ${Master_SOURCE_DIR}/CMakeLists.txt debug-all
 
 MasterIDE.xcode: debug-MasterIDE.build
 	@mkdir -p ${Master_XCODE_DIR}

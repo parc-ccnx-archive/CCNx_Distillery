@@ -1,0 +1,23 @@
+cmake_minimum_required(VERSION 3.2)
+project (master)
+
+message("--- Master ---")
+
+macro(Subdirs result parent)
+    file(GLOB children LIST_DIRECTORIES true RELATIVE ${parent} "[^.]*")
+    set(dirlist "")
+    foreach(child ${children})
+        if(IS_DIRECTORY ${parent}/${child})
+            list(APPEND dirlist ${child})
+        endif()
+    endforeach()
+    set(${result} ${dirlist})
+endmacro()
+
+Subdirs(modules ${CMAKE_SOURCE_DIR})
+
+foreach(module ${modules})
+    message("module: ${module}")
+    set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/${module}/cmake/Modules")
+    add_subdirectory(${module})
+endforeach()
