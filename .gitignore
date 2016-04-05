@@ -3,7 +3,6 @@ build
 usr
 .distillery.stamp
 src/*
-!src/CMakeLists.txt
 xcode
 
 # Temporary files
@@ -11,3 +10,7 @@ xcode
 *~
 build-debug
 usr-debug
+build-nopants
+build-release
+usr-nopants
+usr-release
