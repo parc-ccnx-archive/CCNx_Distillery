@@ -16,7 +16,8 @@ MasterIDE.xcodeopen: debug-MasterIDE.xcode
 MasterIDE.clion: debug-MasterIDE.build
 
 MasterIDE.clionopen: debug-MasterIDE.clion
-	@tools/bin/clion_wrapper.sh
+	@tools/bin/clion_wrapper.sh&
+	@echo "CLion has be spawned"
 
 xcode: debug-MasterIDE.xcode
 
