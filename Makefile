@@ -117,7 +117,6 @@ clobber: distclean
 	@rm -rf ${DISTILLERY_INSTALL_DIR}/include
 	@rm -rf ${DISTILLERY_INSTALL_DIR}/share
 	@rm -rf ${DISTILLERY_INSTALL_DIR}/etc
-	@rm -rf ${DISTILLERY_INSTALL_DIR}-debug
 	@rm -rf ${DISTILLERY_XCODE_DIR}
 	@rm -rf .*.stamp
 
@@ -126,7 +125,6 @@ clean: ${modules_clean}
 
 distclean: 
 	@rm -rf ${DISTILLERY_BUILD_DIR}
-	@rm -rf ${DISTILLERY_BUILD_DIR}-debug
 	@rm -rf report.txt
 
 #distillery-update:
@@ -175,9 +173,12 @@ help:
 	@echo "make clean       - Clean the build"
 	@echo "make distclean   - Distclean the build"
 	@echo "make xcode       - Create xcode projects [only works on Mac]" 
-	@echo "make all-debug   - make clobber all with DEBUG on"
-	@echo "make all-release - make clobber all optimized"
-	@echo "make all-nopants - make clobber all optimized with no validation (use at your own risk)"
+	@echo "make debug-*     - make a target with DEBUG on"
+	@echo "make release-*   - make a target with RELEASE on (optimized)"
+	@echo "make nopants-*   - make a target with NOPANTS on (no validation - use at your own risk)"
+	@echo "make all-debug   - make debug-clobber debug-all"
+	@echo "make all-release - make release-clobber release-all"
+	@echo "make all-nopants - make nopants-clobber nopants-all"
 	@echo 
 	@echo "---- Basic module targets ----"
 	@echo "Module Directory  = ${MODULES_DIRECTORY_DEFAULT}"
@@ -189,20 +190,33 @@ help:
 ${DISTILLERY_STAMP}: ${REBUILD_DEPENDS}
 	touch $@ 
 
-all-nopants:
-	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=NOPANTS" DISTILLERY_BUILD_NAME=-nopants ${MAKE} clobber all
+all-nopants: nopants-clobber nopants-all
 
-all-debug:
-	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=DEBUG" DISTILLERY_BUILD_NAME=-debug ${MAKE} clobber all MasterIDE.build
+all-debug: debug-clobber debug-all
 
-step-debug: 
-	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=DEBUG" DISTILLERY_BUILD_NAME=-debug ${MAKE} step
+all-release: release-clobber release-all
 
-all-release:
-	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=RELEASE" DISTILLERY_BUILD_NAME=-release ${MAKE} clobber all
+all-releasedebug: releasedebug-clobber releasedebug-all
 
-all-releasedebug:
-	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=RELWITHDEBINFO" DISTILLERY_BUILD_NAME=-releasedebug ${MAKE} clobber all
+debug-%: export CMAKE_BUILD_TYPE_FLAG = -DCMAKE_BUILD_TYPE=DEBUG
+debug-%: export DISTILLERY_BUILD_NAME = -debug
+debug-%:
+	@${MAKE} $*
+
+release-%: export CMAKE_BUILD_TYPE_FLAG = "-DCMAKE_BUILD_TYPE=RELEASE"
+release-%: export DISTILLERY_BUILD_NAME = -release
+release-%: 
+	@${MAKE} $*
+
+nopants-%: export CMAKE_BUILD_TYPE_FLAG = "-DCMAKE_BUILD_TYPE=NOPANTS"
+nopants-%: export DISTILLERY_BUILD_NAME = -nopants
+nopants-%:
+	@${MAKE} $*
+
+releasedebug-%: export CMAKE_BUILD_TYPE_FLAG = "-DCMAKE_BUILD_TYPE=RELWITHDEBINFO"
+releasedebug-%: export DISTILLERY_BUILD_NAME = -releasedebug
+releasedebug-%:
+	@${MAKE} $*
 
 install-directories:
 	@mkdir -p ${DISTILLERY_INSTALL_DIR}/include
@@ -248,6 +262,7 @@ info:
 # DO NOT ALTER THE FORMAT
 env:
 	@echo DISTILLERY_ROOT_DIR=${DISTILLERY_ROOT_DIR}
+	@echo DISTILLERY_BUILD_DIR=${DISTILLERY_BUILD_DIR}
 	@echo DISTILLERY_DEFAULT_CONFIG=${DISTILLERY_DEFAULT_CONFIG}
 	@echo DISTILLERY_LOCAL_CONFIG=${DISTILLERY_LOCAL_CONFIG}
 	@echo DISTILLERY_USER_CONFIG=${DISTILLERY_USER_CONFIG}

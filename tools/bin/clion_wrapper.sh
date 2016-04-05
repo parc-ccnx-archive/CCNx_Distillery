@@ -8,4 +8,17 @@ source ./export_ccnx_env.sh
 
 cd ${DISTILLERY_ROOT_DIR}/src
 
-open /Applications/CLion.app
+osType=`uname -s`
+
+case "$osType" in
+	Darwin)
+		open /Applications/CLion.app
+		;;
+	Linux)
+		clion.sh
+		;;
+	*)
+		echo "System not recognized, edit ${0} to add support"
+		;;
+esac
+
