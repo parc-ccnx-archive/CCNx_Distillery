@@ -1,3 +1,7 @@
+# This is a master CMakeLists.txt file for IDEs. If you are viewing this as
+# CMakeLists.txt in the source directory IT IS A COPY and SHOULD NOT BE EDITED - 
+# edit the MasterIDE-CMakeLists.txt in CCNx_Distillery/config instead.
+#
 cmake_minimum_required(VERSION 3.2)
 project (master)
 
