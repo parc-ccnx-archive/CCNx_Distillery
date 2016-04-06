@@ -169,19 +169,26 @@ help:
 	@echo 
 	@echo "---- Advanced targets ----"
 	@echo "make nuke-all-modules - DANGEROUS! Clean all the modules to git checkout (git clean -dfx)"
-	@echo "                       - You will lose all uncommited changes"
+	@echo "                      - You will lose all uncommited changes"
 	@echo "make clean       - Clean the build"
 	@echo "make distclean   - Distclean the build"
-	@echo "make xcode       - Create xcode projects [only works on Mac]" 
 	@echo "make *-debug     - make a target with DEBUG on (e.g. all-debug or check-debug)"
 	@echo "make *-release   - make a target with RELEASE on (optimized)"
 	@echo "make *-nopants   - make a target with NOPANTS on (no validation - use at your own risk)"
+	@echo
+	@echo "---- IDE support targets ----"
+	@echo "make xcode               - Create xcode projects [only works on Mac]" 
+	@echo "make MasterIDE.xcode     - Makes an xcode uber-project (based on all-debug) that contains"
+	@echo "                         - the various sub-mdules"
+	@echo "make MasterIDE.xcodeopen - Makes MasterIDE.xcode and the starts xcode"
+	@echo "make MasterIDE.clionopen - Creates an uber CMakeLists.txt and starts CLion with the necessary"
+	@echo "                         - environment for development"
 	@echo 
 	@echo "---- Basic module targets ----"
 	@echo "Module Directory  = ${MODULES_DIRECTORY_DEFAULT}"
 	@echo "Modules Loaded    = ${modules}"
 	@echo "GitModules Loaded = ${gitmodules}"
-	@echo "Per-module targets: \"Module\" \"Module.distclean\" \"Module.nuke\" "
+	@echo "Per-module targets: \"Module\" \"Module.distclean\" \"Module.nuke\" \"Module-debug\""
 
 
 ${DISTILLERY_STAMP}: ${REBUILD_DEPENDS}
