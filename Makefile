@@ -173,12 +173,9 @@ help:
 	@echo "make clean       - Clean the build"
 	@echo "make distclean   - Distclean the build"
 	@echo "make xcode       - Create xcode projects [only works on Mac]" 
-	@echo "make debug-*     - make a target with DEBUG on"
-	@echo "make release-*   - make a target with RELEASE on (optimized)"
-	@echo "make nopants-*   - make a target with NOPANTS on (no validation - use at your own risk)"
-	@echo "make all-debug   - make debug-clobber debug-all"
-	@echo "make all-release - make release-clobber release-all"
-	@echo "make all-nopants - make nopants-clobber nopants-all"
+	@echo "make *-debug     - make a target with DEBUG on (e.g. all-debug or check-debug)"
+	@echo "make *-release   - make a target with RELEASE on (optimized)"
+	@echo "make *-nopants   - make a target with NOPANTS on (no validation - use at your own risk)"
 	@echo 
 	@echo "---- Basic module targets ----"
 	@echo "Module Directory  = ${MODULES_DIRECTORY_DEFAULT}"
@@ -190,33 +187,33 @@ help:
 ${DISTILLERY_STAMP}: ${REBUILD_DEPENDS}
 	touch $@ 
 
-all-nopants: nopants-clobber nopants-all
-
-all-debug: debug-clobber debug-all
-
-all-release: release-clobber release-all
-
-all-releasedebug: releasedebug-clobber releasedebug-all
-
 debug-%: export CMAKE_BUILD_TYPE_FLAG = -DCMAKE_BUILD_TYPE=DEBUG
 debug-%: export DISTILLERY_BUILD_NAME = -debug
 debug-%:
 	@${MAKE} $*
+
+%-debug: debug-% ; 
 
 release-%: export CMAKE_BUILD_TYPE_FLAG = "-DCMAKE_BUILD_TYPE=RELEASE"
 release-%: export DISTILLERY_BUILD_NAME = -release
 release-%: 
 	@${MAKE} $*
 
+%-release: release-% ;
+
 nopants-%: export CMAKE_BUILD_TYPE_FLAG = "-DCMAKE_BUILD_TYPE=NOPANTS"
 nopants-%: export DISTILLERY_BUILD_NAME = -nopants
 nopants-%:
 	@${MAKE} $*
 
+%-nopants: nopants-% ;
+
 releasedebug-%: export CMAKE_BUILD_TYPE_FLAG = "-DCMAKE_BUILD_TYPE=RELWITHDEBINFO"
 releasedebug-%: export DISTILLERY_BUILD_NAME = -releasedebug
 releasedebug-%:
 	@${MAKE} $*
+
+%-releasedebug: releasedebug-% ;
 
 install-directories:
 	@mkdir -p ${DISTILLERY_INSTALL_DIR}/include
