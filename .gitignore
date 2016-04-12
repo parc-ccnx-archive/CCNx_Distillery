@@ -2,9 +2,15 @@
 build
 usr
 .distillery.stamp
-src
+src/*
 xcode
 
 # Temporary files
 *.swp
 *~
+build-debug
+usr-debug
+build-nopants
+build-release
+usr-nopants
+usr-release

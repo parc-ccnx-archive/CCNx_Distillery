@@ -109,7 +109,7 @@ install-all: install-directories pre-requisites ${modules}
 
 #distillery-sync: distillery-update ${DISTILLERY_ROOT_DIR}/tools/bin/syncOriginMasterWithPARCUpstream
 #	@${DISTILLERY_ROOT_DIR}/tools/bin/syncOriginMasterWithPARCUpstream
-	
+
 clobber: distclean
 	@rm -rf ${CONFIGURE_CACHE_FILE}
 	@rm -rf ${DISTILLERY_INSTALL_DIR}/bin
@@ -117,6 +117,7 @@ clobber: distclean
 	@rm -rf ${DISTILLERY_INSTALL_DIR}/include
 	@rm -rf ${DISTILLERY_INSTALL_DIR}/share
 	@rm -rf ${DISTILLERY_INSTALL_DIR}/etc
+	@rm -rf ${DISTILLERY_XCODE_DIR}
 	@rm -rf .*.stamp
 
 clean: ${modules_clean}
@@ -168,35 +169,58 @@ help:
 	@echo 
 	@echo "---- Advanced targets ----"
 	@echo "make nuke-all-modules - DANGEROUS! Clean all the modules to git checkout (git clean -dfx)"
-	@echo "                       - You will lose all uncommited changes"
+	@echo "                      - You will lose all uncommited changes"
 	@echo "make clean       - Clean the build"
 	@echo "make distclean   - Distclean the build"
-	@echo "make xcode       - Create xcode projects [only works on Mac]" 
-	@echo "make all-debug   - make clobber all with DEBUG on"
-	@echo "make all-release - make clobber all optimized"
-	@echo "make all-nopants - make clobber all optimized with no validation (use at your own risk)"
+	@echo "make *-debug     - make a target with DEBUG on (e.g. all-debug or check-debug)"
+	@echo "make *-release   - make a target with RELEASE on (optimized)"
+	@echo "make *-nopants   - make a target with NOPANTS on (no validation - use at your own risk)"
+	@echo
+	@echo "---- IDE support targets ----"
+	@echo "make xcode               - Create xcode projects [only works on Mac]" 
+	@echo "make MasterIDE.xcode     - Makes an xcode uber-project (based on all-debug) that contains"
+	@echo "                         - the various sub-mdules"
+	@echo "make MasterIDE.xcodeopen - Makes MasterIDE.xcode and the starts xcode"
+	@echo "make MasterIDE.clionopen - Creates an uber CMakeLists.txt and starts CLion with the necessary"
+	@echo "                         - environment for development"
 	@echo 
 	@echo "---- Basic module targets ----"
 	@echo "Module Directory  = ${MODULES_DIRECTORY_DEFAULT}"
 	@echo "Modules Loaded    = ${modules}"
 	@echo "GitModules Loaded = ${gitmodules}"
-	@echo "Per-module targets: \"Module\" \"Module.distclean\" \"Module.nuke\" "
+	@echo "Per-module targets: \"Module\" \"Module.distclean\" \"Module.nuke\" \"Module-debug\""
 
 
 ${DISTILLERY_STAMP}: ${REBUILD_DEPENDS}
 	touch $@ 
 
-all-nopants:
-	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=NOPANTS" DISTILLERY_BUILD_NAME=-nopants ${MAKE} clobber all
+debug-%: export CMAKE_BUILD_TYPE_FLAG = -DCMAKE_BUILD_TYPE=DEBUG
+debug-%: export DISTILLERY_BUILD_NAME = -debug
+debug-%:
+	@${MAKE} $*
 
-all-debug:
-	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=DEBUG" DISTILLERY_BUILD_NAME=-debug ${MAKE} clobber all
+%-debug: debug-% ; 
 
-all-release:
-	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=RELEASE" DISTILLERY_BUILD_NAME=-release ${MAKE} clobber all
+release-%: export CMAKE_BUILD_TYPE_FLAG = "-DCMAKE_BUILD_TYPE=RELEASE"
+release-%: export DISTILLERY_BUILD_NAME = -release
+release-%: 
+	@${MAKE} $*
 
-all-releasedebug:
-	@CMAKE_BUILD_TYPE_FLAG="-DCMAKE_BUILD_TYPE=RELWITHDEBINFO" DISTILLERY_BUILD_NAME=-releasedebug ${MAKE} clobber all
+%-release: release-% ;
+
+nopants-%: export CMAKE_BUILD_TYPE_FLAG = "-DCMAKE_BUILD_TYPE=NOPANTS"
+nopants-%: export DISTILLERY_BUILD_NAME = -nopants
+nopants-%:
+	@${MAKE} $*
+
+%-nopants: nopants-% ;
+
+releasedebug-%: export CMAKE_BUILD_TYPE_FLAG = "-DCMAKE_BUILD_TYPE=RELWITHDEBINFO"
+releasedebug-%: export DISTILLERY_BUILD_NAME = -releasedebug
+releasedebug-%:
+	@${MAKE} $*
+
+%-releasedebug: releasedebug-% ;
 
 install-directories:
 	@mkdir -p ${DISTILLERY_INSTALL_DIR}/include
@@ -242,6 +266,8 @@ info:
 # DO NOT ALTER THE FORMAT
 env:
 	@echo DISTILLERY_ROOT_DIR=${DISTILLERY_ROOT_DIR}
+	@echo DISTILLERY_SOURCE_DIR=${DISTILLERY_SOURCE_DIR}
+	@echo DISTILLERY_BUILD_DIR=${DISTILLERY_BUILD_DIR}
 	@echo DISTILLERY_DEFAULT_CONFIG=${DISTILLERY_DEFAULT_CONFIG}
 	@echo DISTILLERY_LOCAL_CONFIG=${DISTILLERY_LOCAL_CONFIG}
 	@echo DISTILLERY_USER_CONFIG=${DISTILLERY_USER_CONFIG}
