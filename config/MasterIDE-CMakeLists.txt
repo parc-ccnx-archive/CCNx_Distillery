@@ -5,14 +5,16 @@
 cmake_minimum_required(VERSION 3.2)
 project (master)
 
-message("--- Master ---")
+message("--- Collecting all sub-projects ---")
 
 macro(Subdirs result parent)
     file(GLOB children LIST_DIRECTORIES true RELATIVE ${parent} "[^.]*")
     set(dirlist "")
     foreach(child ${children})
         if(IS_DIRECTORY ${parent}/${child})
-            list(APPEND dirlist ${child})
+            if(EXISTS ${parent}/${child}/CMakeLists.txt)
+                list(APPEND dirlist ${child})
+            endif()
         endif()
     endforeach()
     set(${result} ${dirlist})
