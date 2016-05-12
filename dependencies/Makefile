@@ -77,7 +77,7 @@ include Makefile.downloader
 include Makefile.unix
 
 ########################################################################
-# We need a root dir for Distillery. If this is not in the environment, 
+# We need a root dir for Distillery. If this is not in the environment,
 # assume it's in our parent directory
 DISTILLERY_ROOT_DIR?=$(shell pwd)/..
 
@@ -110,7 +110,7 @@ PCRE_TARGZ_DOWNLOAD=${DOWNLOAD_DIR}/${PCRE_TARGZ}
 PCRE_SEMAPHORE=${DISTILLERY_EXTERN_DIR}/${PCRE_DIR}.sem
 PCRE_DOWNLOAD_URL=http://downloads.sourceforge.net/project/pcre/pcre/8.38
 
-${PCRE_TARGZ_DOWNLOAD}: 
+${PCRE_TARGZ_DOWNLOAD}:
 	cd ${DOWNLOAD_DIR}; ${DOWNLOADER} ${PCRE_DOWNLOAD_URL}/${PCRE_TARGZ}
 
 ${PCRE_DIR}/Makefile.in: ${PCRE_TARGZ_DOWNLOAD}
@@ -118,9 +118,9 @@ ${PCRE_DIR}/Makefile.in: ${PCRE_TARGZ_DOWNLOAD}
 	touch ${PCRE_DIR}/Makefile.in
 
 ${PCRE_DIR}/Makefile: ${PCRE_DIR}/Makefile.in
-	cd ${PCRE_DIR}; CFLAGS=-O2 ./configure ${HOST_ENV} --prefix=${DISTILLERY_EXTERN_DIR} --disable-debug-mode; 
+	cd ${PCRE_DIR}; CFLAGS=-O2 ./configure ${HOST_ENV} --prefix=${DISTILLERY_EXTERN_DIR} --disable-debug-mode;
 
-${DISTILLERY_EXTERN_DIR}/include/pcre.h: 
+${DISTILLERY_EXTERN_DIR}/include/pcre.h:
 	$(MAKE) ${PCRE_DIR}/Makefile
 	cd ${PCRE_DIR}; $(MAKE) $(MAKE_BUILD_FLAGS); $(MAKE) install
 	touch ${PCRE_SEMAPHORE}
@@ -134,7 +134,7 @@ pcre-clean:
 	@rm -rf ${PCRE_SEMAPHORE}
 
 pcre-clobber:
-	@rm -rf ${PCRE_DIR} 
+	@rm -rf ${PCRE_DIR}
 	@rm -rf ${PCRE_SEMAPHORE}
 
 
@@ -149,7 +149,7 @@ SWIG_TARGZ_DOWNLOAD=${DOWNLOAD_DIR}/${SWIG_TARGZ}
 SWIG_SEMAPHORE=${DISTILLERY_TOOLS_DIR}/${SWIG_DIR}.sem
 SWIG_DOWNLOAD_URL=
 
-${SWIG_TARGZ_DOWNLOAD}: 
+${SWIG_TARGZ_DOWNLOAD}:
 	cd ${DOWNLOAD_DIR}; ${DOWNLOADER} ${SWIG_DOWNLOAD_URL}/${SWIG_TARGZ}
 
 ${SWIG_DIR}/Makefile.in: ${SWIG_TARGZ_DOWNLOAD}
@@ -159,7 +159,7 @@ ${SWIG_DIR}/Makefile.in: ${SWIG_TARGZ_DOWNLOAD}
 ${SWIG_DIR}/Makefile: ${SWIG_DIR}/Makefile.in
 	cd ${SWIG_DIR}; CFLAGS=-O2 ./configure ${HOST_ENV} --prefix=${DISTILLERY_TOOLS_DIR} --disable-debug-mode ${WITH_PCRE_OPTION};
 
-${DISTILLERY_TOOLS_DIR}/share/swig/3.0.2/python/python.swg: 
+${DISTILLERY_TOOLS_DIR}/share/swig/3.0.2/python/python.swg:
 	$(MAKE) ${SWIG_DIR}/Makefile
 	cd ${SWIG_DIR}; $(MAKE) $(MAKE_BUILD_FLAGS); $(MAKE) install
 	touch ${SWIG_SEMAPHORE}
@@ -173,7 +173,7 @@ swig-clean:
 	@rm -rf ${SWIG_SEMAPHORE}
 
 swig-clobber:
-	@rm -rf ${SWIG_DIR} 
+	@rm -rf ${SWIG_DIR}
 	@rm -rf ${SWIG_SEMAPHORE}
 
 
@@ -188,7 +188,7 @@ LIBEVENT_TARGZ_DOWNLOAD=${DOWNLOAD_DIR}/${LIBEVENT_TARGZ}
 LIBEVENT_SEMAPHORE=${DISTILLERY_EXTERN_DIR}/${LIBEVENT_DIR}.sem
 LIBEVENT_DOWNLOAD_URL=https://github.com/libevent/libevent/releases/download/release-2.0.22-stable
 
-${LIBEVENT_TARGZ_DOWNLOAD}: 
+${LIBEVENT_TARGZ_DOWNLOAD}:
 	cd ${DOWNLOAD_DIR}; ${DOWNLOADER} ${LIBEVENT_DOWNLOAD_URL}/${LIBEVENT_TARGZ}
 
 ${LIBEVENT_DIR}/Makefile.in: ${LIBEVENT_TARGZ_DOWNLOAD}
@@ -197,9 +197,9 @@ ${LIBEVENT_DIR}/Makefile.in: ${LIBEVENT_TARGZ_DOWNLOAD}
 
 ${LIBEVENT_DIR}/Makefile: ${LIBEVENT_DIR}/Makefile.in
 	cd ${LIBEVENT_DIR}; CFLAGS=-O2 ./configure ${HOST_ENV} --prefix=${DISTILLERY_EXTERN_DIR} \
-                       --disable-debug-mode --disable-openssl; 
+                       --disable-debug-mode --disable-openssl;
 
-${DISTILLERY_EXTERN_DIR}/include/event.h: 
+${DISTILLERY_EXTERN_DIR}/include/event.h:
 	$(MAKE) ${LIBEVENT_DIR}/Makefile
 	cd ${LIBEVENT_DIR}; $(MAKE) $(MAKE_BUILD_FLAGS); $(MAKE) install
 	touch ${LIBEVENT_SEMAPHORE}
@@ -213,7 +213,7 @@ libevent-clean:
 	@rm -rf ${LIBEVENT_SEMAPHORE}
 
 libevent-clobber:
-	@rm -rf ${LIBEVENT_DIR} 
+	@rm -rf ${LIBEVENT_DIR}
 	@rm -rf ${LIBEVENT_SEMAPHORE}
 
 
@@ -228,7 +228,7 @@ OPENSSL_DOWNLOAD_URL=http://www.openssl.org/source
 OPENSSL_SEMAPHORE=${DISTILLERY_EXTERN_DIR}/${OPENSSL_DIR}.sem
 OPENSSL_URL=${OPENSSL_DOWNLOAD_URL}/${OPENSSL_TARGZ}
 
-${OPENSSL_TARGZ_DOWNLOAD}: 
+${OPENSSL_TARGZ_DOWNLOAD}:
 	cd ${DOWNLOAD_DIR}; ${DOWNLOADER} ${OPENSSL_URL}
 
 ${OPENSSL_DIR}/Makefile.in: ${OPENSSL_TARGZ_DOWNLOAD}
@@ -242,7 +242,7 @@ else
 	cd ${OPENSSL_DIR}; ${OPENSSL_CONFIGURE} --prefix=${DISTILLERY_EXTERN_DIR} threads shared
 endif
 
-${DISTILLERY_EXTERN_DIR}/include/openssl/ssl.h: 
+${DISTILLERY_EXTERN_DIR}/include/openssl/ssl.h:
 	$(MAKE) ${OPENSSL_DIR}/Makefile
 	cd ${OPENSSL_DIR}; $(MAKE) $(MAKE_BUILD_FLAGS); $(MAKE) install
 	touch ${OPENSSL_SEMAPHORE}
@@ -256,7 +256,7 @@ openssl-clean:
 	@rm -rf ${OPENSSL_SEMAPHORE}
 
 openssl-clobber:
-	@rm -rf ${OPENSSL_DIR} 
+	@rm -rf ${OPENSSL_DIR}
 	@rm -rf ${OPENSSL_SEMAPHORE}
 
 
@@ -280,7 +280,7 @@ ${CMAKE_DIR}/Makefile.in: ${CMAKE_TARGZ_DOWNLOAD}
 ${CMAKE_DIR}/Makefile: ${CMAKE_DIR}/Makefile.in
 	cd ${CMAKE_DIR}; ./configure ${HOST_ENV} --prefix=${DISTILLERY_TOOLS_DIR}
 
-${DISTILLERY_TOOLS_DIR}/bin/cmake: 
+${DISTILLERY_TOOLS_DIR}/bin/cmake:
 	$(MAKE) ${CMAKE_DIR}/Makefile
 	cd ${CMAKE_DIR}; $(MAKE) $(MAKE_BUILD_FLAGS); $(MAKE) install
 	touch ${DISTILLERY_TOOLS_DIR}/bin/cmake
@@ -295,7 +295,7 @@ cmake-clean:
 	@rm -rf ${CMAKE_SEMAPHORE}
 
 cmake-clobber:
-	@rm -rf ${CMAKE_DIR} 
+	@rm -rf ${CMAKE_DIR}
 	@rm -rf ${CMAKE_SEMAPHORE}
 
 
@@ -312,8 +312,8 @@ dep_clobber += uncrustify-clobber
 
 uncrustify: ${DISTILLERY_TOOLS_DIR}/bin/uncrustify
 
-${DISTILLERY_TOOLS_DIR}/bin/uncrustify: 
-	$(MAKE) ${DOWNLOAD_DIR}/${UNCRUSTIFY_TARGZ} 
+${DISTILLERY_TOOLS_DIR}/bin/uncrustify:
+	$(MAKE) ${DOWNLOAD_DIR}/${UNCRUSTIFY_TARGZ}
 	tar xzf ${DOWNLOAD_DIR}/${UNCRUSTIFY_TARGZ}
 	(cd ${UNCRUSTIFY_DIR} && ./configure --prefix=${DISTILLERY_TOOLS_DIR} && make)
 	(cd ${UNCRUSTIFY_DIR} && make install )
@@ -323,7 +323,7 @@ uncrustify-clean:
 	@rm -rf ${UNCRUSTIFY_SEMAPHORE}
 
 uncrustify-clobber:
-	@rm -rf ${UNCRUSTIFY_DIR} 
+	@rm -rf ${UNCRUSTIFY_DIR}
 	@rm -rf ${UNCRUSTIFY_SEMAPHORE}
 
 ${DOWNLOAD_DIR}/${UNCRUSTIFY_TARGZ}:
@@ -344,7 +344,7 @@ dep_clobber += doxygen-clobber
 
 doxygen: ${DISTILLERY_TOOLS_DIR}/bin/doxygen
 
-${DISTILLERY_TOOLS_DIR}/bin/doxygen: 
+${DISTILLERY_TOOLS_DIR}/bin/doxygen:
 	$(MAKE) ${DOWNLOAD_DIR}/${DOXYGEN_TARGZ}
 	tar xzf ${DOWNLOAD_DIR}/${DOXYGEN_TARGZ}
 	(cd ${DOXYGEN_DIR} && cmake -DCMAKE_INSTALL_PREFIX=${DISTILLERY_TOOLS_DIR} && make)
@@ -371,7 +371,7 @@ LONGBOW_SEMAPHORES=
 ifeq (${UNAME},Darwin)
     system_fix_as_root=
     DARWIN_LIBRARIES=libevent openssl
-    DARWIN_SEMAPHORES=${LIBEVENT_SEMAPHORE} 
+    DARWIN_SEMAPHORES=${LIBEVENT_SEMAPHORE}
     DARWIN_TOOLS=pcre
     DARWIN_TOOLS_SEMAPHORES=${PCRE_SEMAPHORE} ${AUTOCONF_SEMAPHORE} ${AUTOMAKE_SEMAPHORE} ${LIBTOOL_SEMAPHORE}
     WITH_PCRE_OPTION=--with-pcre-prefix=${DISTILLERY_EXTERN_DIR}
@@ -410,8 +410,8 @@ externs: ${DARWIN_LIBRARIES} ${LINUX_LIBRARIES} ${LONGBOW_EXTERNS} ${CROSS_COMPI
 externs_semaphores=${DARWIN_SEMAPHORES} ${LINUX_SEMAPHORES} ${LONGBOW_SEMAPHORES} ${CROSS_COMPILE_SEMAPHORES}
 
 # In order to allow dependencies to change over time we have implemented
-# a simple system of semaphores.  If the semaphore files are present, we 
-# have already installed the required software.  
+# a simple system of semaphores.  If the semaphore files are present, we
+# have already installed the required software. 
 #
 # If the semaphores are not present we are either new, or we have a missing
 # dependency. If we do have a missing dependency then we must delete all the
@@ -434,7 +434,7 @@ directory_warning:
 	@echo "**********************************************************************************"
 	@echo Distillery will attempt to create the dependency directories if they don\'t exist.
 	@echo If this fails you should create the directories yourself with the following commands:
-	@echo 
+	@echo
 	@echo sudo mkdir -p ${DIRECTORIES_NEEDED}
 	@echo sudo chown `whoami` ${DIRECTORIES_NEEDED}
 	@echo sudo chmod 755 ${DIRECTORIES_NEEDED}
@@ -469,6 +469,6 @@ ubuntu-check-packages:
 
 clean: $(dep_clean)
 
-clobber: $(dep_clobber) 
+clobber: $(dep_clobber)
 	@rm -rf ${DISTILLERY_TOOLS_DIR}
 	@rm -rf ${DISTILLERY_EXTERN_DIR}

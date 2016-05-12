@@ -64,7 +64,7 @@
 # You can use this file as a template. It will be included in the Makefile.
 #
 # Make will first parse the USER_CONFIG file. Later the LOCAL_CONFIG file.
-# Finally the DEFAULT_CONFIG file will be parsed. 
+# Finally the DEFAULT_CONFIG file will be parsed.
 #
 # If variables are directly assigned (=), they will override previous definitions
 # If variables are conditionally assigned (?=) then the previous value will
@@ -79,7 +79,7 @@
 ###############################################################################
 
 #DISTILLERY_GITHUB_URL
-# The base URL from where modules will be checked out. 
+# The base URL from where modules will be checked out.
 # Note that this must include the trailing character
 DISTILLERY_GITHUB_URL?=https://github.com/
 
@@ -111,7 +111,7 @@ DISTILLERY_ROOT_DIR?=$(shell pwd)
 # appended to them
 DISTILLERY_BUILD_NAME?=
 
-# This is the directory where things are built. 
+# This is the directory where things are built.
 # Note that if some modules don't support off-tree builds you may have problems
 DISTILLERY_BUILD_DIR?=${DISTILLERY_ROOT_DIR}/build${DISTILLERY_BUILD_NAME}
 
@@ -148,7 +148,7 @@ export CCNX_DEPENDENCIES
 # This directory holds some of the tools needed to build libccnx. It should be
 # built for the HOST. The directory might be deleted and rebuilt by the
 # dependency system. The directory will be included in the execution PATH as
-# Distillery builds all the modules. 
+# Distillery builds all the modules.
 DISTILLERY_TOOLS_DIR?=${DISTILLERY_DEPENDENCIES_DIR}/build-tools
 
 # DISTILLERY_XCODE_DIR?=${DISTILLERY_ROOT_DIR}/xcode
@@ -167,7 +167,7 @@ CMAKE_MAKE_TEST_ARGS?="ARGS=-j16"
 # The type of build we are doing.
 # set it to RELEASE if you want an optimized build  (-O3)
 # Options:
-#  DEBUG           eg. -O0 -g 
+#  DEBUG           eg. -O0 -g
 #  RELEASE         eg. -O3 -NDEBUG
 #  RELWITHDEBINFO  eg  -O2 -g -NDEBUG
 #CMAKE_BUILD_TYPE_FLAG?=-DCMAKE_BUILD_TYPE=RELEASE

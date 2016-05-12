@@ -62,7 +62,7 @@
 #
 # This is the main Makefile for the Distillery CCNx distribution.
 # It is in charge of pulling in all necessary modules to build a full CCNx
-# system. 
+# system.
 # There is normally no need to modify this file. You can run "make help" to get
 # more information or you can go directly to the configuration files to modify
 # behavior.
@@ -176,7 +176,7 @@ clobber: distclean
 clean: ${modules_clean}
 	@rm -rf report.txt
 
-distclean: 
+distclean:
 	@rm -rf ${DISTILLERY_BUILD_DIR}
 	@rm -rf report.txt
 
@@ -201,11 +201,11 @@ dependencies.clean:
 dependencies.clobber:
 	@${MAKE} -C dependencies clobber
 
-pre-requisites: 
+pre-requisites:
 
 help:
 	@echo "Simple instructions: run \"make update step\""
-	@echo 
+	@echo
 	@echo "---- Basic build targets ----"
 	@echo "make help      - This help message"
 	@echo "make info      - Show basic information"
@@ -217,9 +217,9 @@ help:
 	@echo "make all       - Configure, compile and install all software in DISTILLERY_INSTALL_DIR"
 	@echo "make check     - Run all the tests"
 	@echo "make clobber   - Clean the build, remove the install software"
-	@echo 
+	@echo
 	@echo "make sanity    - Run simple sanity checks to test that the build is functional"
-	@echo 
+	@echo
 	@echo "---- Advanced targets ----"
 	@echo "make nuke-all-modules - DANGEROUS! Clean all the modules to git checkout (git clean -dfx)"
 	@echo "                      - You will lose all uncommited changes"
@@ -230,13 +230,13 @@ help:
 	@echo "make *-nopants   - make a target with NOPANTS on (no validation - use at your own risk)"
 	@echo
 	@echo "---- IDE support targets ----"
-	@echo "make xcode               - Create xcode projects [only works on Mac]" 
+	@echo "make xcode               - Create xcode projects [only works on Mac]"
 	@echo "make MasterIDE.xcode     - Makes an xcode uber-project (based on all-debug) that contains"
 	@echo "                         - the various sub-mdules"
 	@echo "make MasterIDE.xcodeopen - Makes MasterIDE.xcode and the starts xcode"
 	@echo "make MasterIDE.clionopen - Creates an uber CMakeLists.txt and starts CLion with the necessary"
 	@echo "                         - environment for development"
-	@echo 
+	@echo
 	@echo "---- Basic module targets ----"
 	@echo "Module Directory  = ${MODULES_DIRECTORY_DEFAULT}"
 	@echo "Modules Loaded    = ${modules}"
@@ -245,18 +245,18 @@ help:
 
 
 ${DISTILLERY_STAMP}: ${REBUILD_DEPENDS}
-	touch $@ 
+	touch $@
 
 debug-%: export CMAKE_BUILD_TYPE_FLAG = -DCMAKE_BUILD_TYPE=DEBUG
 debug-%: export DISTILLERY_BUILD_NAME = -debug
 debug-%:
 	@${MAKE} $*
 
-%-debug: debug-% ; 
+%-debug: debug-% ;
 
 release-%: export CMAKE_BUILD_TYPE_FLAG = "-DCMAKE_BUILD_TYPE=RELEASE"
 release-%: export DISTILLERY_BUILD_NAME = -release
-release-%: 
+release-%:
 	@${MAKE} $*
 
 %-release: release-% ;
@@ -288,8 +288,8 @@ Distillery.report:
 	@echo "#" `uname -n`
 	@echo "#" PATH=${PATH}
 
-	@git status 
-	@git log -1 
+	@git status
+	@git log -1
 	@git diff -U1
 
 report.txt:
@@ -300,10 +300,10 @@ distillery.checkout.error:
 	@echo
 	@echo ===========================================================
 	@echo
-	@echo DISTILLERY ERROR: You have not checked out a repository! 
+	@echo DISTILLERY ERROR: You have not checked out a repository!
 	@echo Please make sure to run \"make update\" at least once
 	@echo
-	@echo Otherwise there is a misconfigured module, 
+	@echo Otherwise there is a misconfigured module,
 	@echo please check the module config files at .distillery/modules
 	@echo
 	@echo ===========================================================

@@ -62,5 +62,5 @@ CURL_EXISTS := $(shell which curl)
 ifdef CURL_EXISTS
 	DOWNLOADER=curl -O -L
 else
-	DOWNLOADER=wget 
+	DOWNLOADER=wget
 endif

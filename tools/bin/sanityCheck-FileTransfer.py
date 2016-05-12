@@ -2,16 +2,16 @@
 #
 # Copyright (c) 2015, Xerox Corporation (Xerox) and Palo Alto Research Center, Inc (PARC)
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 # * Redistributions of source code must retain the above copyright
 #   notice, this list of conditions and the following disclaimer.
 # * Redistributions in binary form must reproduce the above copyright
 #   notice, this list of conditions and the following disclaimer in the
 #   documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 # WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -22,7 +22,7 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# 
+#
 # ################################################################################
 # #
 # # PATENT NOTICE
@@ -45,7 +45,7 @@
 # # Do not remove this header notification.  The contents of this section must be
 # # present in all distributions of the software.  You may only modify your own
 # # intellectual property statements.  Please provide contact information.
-# 
+#
 # - Palo Alto Research Center, Inc
 # This software distribution does not grant any rights to patents owned by Palo
 # Alto Research Center, Inc (PARC). Rights to these patents are available via
@@ -256,7 +256,7 @@ def runFileTransferSanityCheck(binDir):
     testDir = None
 
     try:
-        # Start a forwarder 
+        # Start a forwarder
         forwarderPID = spawnChildProcess('.',
                                      '%s/%s' % (binDir, FORWARDER),
                                      FORWARDER, [])
@@ -314,8 +314,8 @@ def runFileTransferSanityCheck(binDir):
 
 def checkBinariesExist(binDir):
     result = True
-    apps = ['athena', 'metis_daemon', 
-            'ccnxSimpleFileTransfer_Client', 
+    apps = ['athena', 'metis_daemon',
+            'ccnxSimpleFileTransfer_Client',
             'ccnxSimpleFileTransfer_Server']
     for app in apps:
         appPath = '%s/%s' % (binDir, app)
