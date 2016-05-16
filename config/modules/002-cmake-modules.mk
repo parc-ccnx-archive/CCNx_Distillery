@@ -65,6 +65,15 @@ $1.xcode:
 $1.xcodeopen: $1.xcode
 	@open ${$1_XCODE_DIR}/$1.xcodeproj
 
+$1.coverage:
+	@echo "### $1: "
+	@longbow-coverage-report ` find ${$1_BUILD_DIR}  -type f -name 'test_*' -not -name '*\.*' `
+
+$1.average-coverage:
+	@echo "### $1: "
+	@longbow-coverage-report -a ` find ${$1_BUILD_DIR}  -type f -name 'test_*' -not -name '*\.*' `
+
+
 xcode: $1.xcode
 
 endef
