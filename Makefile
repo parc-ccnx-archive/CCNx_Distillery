@@ -156,6 +156,7 @@ endif
 modules_clean=$(modules:=.clean)
 modules_check=$(modules:=.check)
 modules_step=$(modules:=.step)
+modules_average-coverage=$(modules:=.average-coverage)
 
 # These are the basic build rules. They will call the module specific rules
 install-all: install-directories pre-requisites ${modules}
@@ -192,6 +193,10 @@ check: ${modules_check}
 
 step: ${modules_step}
 
+# From Distillery, 'make coverage' actually runs the summary version of coverage
+# You can also run 'make <module>.coverage' to get the output showing each file and its coverage.
+coverage: ${modules_average-coverage}
+
 dependencies:
 	@${MAKE} -C dependencies
 
@@ -220,9 +225,12 @@ help:
 	@echo
 	@echo "make sanity    - Run simple sanity checks to test that the build is functional"
 	@echo
+	@echo "make coverage          - Show the average coverage of each module."
+	@echo "make <module>.coverage - Show the coverage of each file in the specified module."
+	@echo
 	@echo "---- Advanced targets ----"
 	@echo "make nuke-all-modules - DANGEROUS! Clean all the modules to git checkout (git clean -dfx)"
-	@echo "                      - You will lose all uncommited changes"
+	@echo "                      - You will lose all uncommitted changes"
 	@echo "make clean       - Clean the build"
 	@echo "make distclean   - Distclean the build"
 	@echo "make *-debug     - make a target with DEBUG on (e.g. all-debug or check-debug)"
