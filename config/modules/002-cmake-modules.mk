@@ -76,4 +76,7 @@ $1.average-coverage:
 
 xcode: $1.xcode
 
+$1.documentation:
+	@${MAKE} ${MAKE_BUILD_FLAGS} -C ${$1_BUILD_DIR} documentation
+
 endef
