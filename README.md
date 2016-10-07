@@ -178,7 +178,6 @@ scJsHost+
 </script>
 <noscript><div class="statcounter"><a title="shopify
 analytics" href="http://statcounter.com/shopify/"
-class="statcounter"><img class="statcounter"
-src="//c.statcounter.com/11128191/0/f0069625/0/"
-alt="shopify analytics" /></a></div></noscript>
+class="statcounter"><img class="statcounter" src="//c.statcounter.com/11128191/0/f0069625/0/" alt="shopify analytics" />
+</a></div></noscript>
 <!-- End of StatCounter Code for Default Guide -->
