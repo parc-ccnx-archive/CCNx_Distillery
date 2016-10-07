@@ -163,3 +163,22 @@ various mechanisms. As of January 2016 PARC has committed to FRAND licensing any
 intellectual property used by its contributions to this software. You may
 contact PARC at cipo@parc.com for more information or visit http://www.ccnx.org
 ```
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+//<![CDATA[
+var sc_project=11128191; 
+var sc_invisible=0; 
+var sc_security="f0069625"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter_xhtml.js'></"+"script>");
+//]]>
+</script>
+<noscript><div class="statcounter"><a title="shopify
+analytics" href="http://statcounter.com/shopify/"
+class="statcounter"><img class="statcounter"
+src="//c.statcounter.com/11128191/0/f0069625/0/"
+alt="shopify analytics" /></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
