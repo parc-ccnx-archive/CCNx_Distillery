@@ -166,4 +166,4 @@ contact PARC at cipo@parc.com for more information or visit http://www.ccnx.org
 <div id="statcounter_image" style="display:inline;"><a
 title="shopify visitor statistics"
 href="http://statcounter.com/shopify/"
-class="statcounter"><img src="//c.statcounter.com/11128191/0/f0069625/0/" alt="shopify visitor statistics" style="border:none;" /></a></div>
+class="statcounter"><img src="http://c.statcounter.com/11128191/0/f0069625/0/" alt="shopify visitor statistics" style="border:none;" /></a></div>
