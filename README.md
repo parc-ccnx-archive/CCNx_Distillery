@@ -12,11 +12,15 @@ tools for writing, testing and evaluating code.
 
 For Distillery licensing information please read the LICENSE file.
 
+# Deprecated Code #
+This repository is no longer active.  See the [Community ICN](https://wiki.fd.io/view/Cicn) project
+for the latest code.  The [CICN Code Repository](https://github.com/FDio/cicn) should be used for all new projects.
+
 ## Quick Start ##
 
 ```
 # Clone this distro
-git clone git@github.com:PARC/CCNx_Distillery.git
+git clone git@github.com:parc-ccnx-archive/CCNx_Distillery.git
 cd CCNx_Distillery
 
 # Install dependencies (if needed)
@@ -38,13 +42,13 @@ The CCNx software will be installed in `CCNx_Distillery/usr`
 
 Distillery brings together a set of modules that are needed to build a full CCNx distribution. It checks each one out and compiles them in order.  The modules used by Distillery can be configured and customized.  By default the following modules are included:
 
-- [LongBow](https://github.com/PARC/LongBow)
-- [Libparc](https://github.com/PARC/Libparc)
-- [Libccnx-common](https://github.com/PARC/Libccnx-common)
-- [Libccnx-transport-rta](https://github.com/PARC/Libccnx-transport-rta)
-- [Libccnx-portal](https://github.com/PARC/Libccnx-portal)
-- [Metis](https://github.com/PARC/Metis)
-- [Athena](https://github.com/PARC/Athena)
+- [LongBow](https://github.com/parc-ccnx-archive/LongBow)
+- [Libparc](https://github.com/parc-ccnx-archive/Libparc)
+- [Libccnx-common](https://github.com/parc-ccnx-archive/Libccnx-common)
+- [Libccnx-transport-rta](https://github.com/parc-ccnx-archive/Libccnx-transport-rta)
+- [Libccnx-portal](https://github.com/parc-ccnx-archive/Libccnx-portal)
+- [Metis](https://github.com/parc-ccnx-archive/Metis)
+- [Athena](https://github.com/parc-ccnx-archive/Athena)
 
 ## Platforms ##
 
@@ -102,7 +106,7 @@ Distillery can be configured in multiple ways.  Please check the config director
 ## Contact ##
 
 You can find more information about CCNx at the main web page, [CCNx.org](http://www.ccnx.org).
-Discussion about CCNx Distillery takes place in the [CCNx mailing list](https://www.ccnx.org/mailman/listinfo/ccnx/), please join the discussion there.  You can also file any issues you find on the [CCNx Distillery github](https://github.com/PARC/CCNx_Distillery).
+Discussion about CCNx Distillery takes place in the [CCNx mailing list](https://www.ccnx.org/mailman/listinfo/ccnx/), please join the discussion there.  You can also file any issues you find on the [CCNx Distillery github](https://github.com/parc-ccnx-archive/CCNx_Distillery).
 
 
 ## License ##

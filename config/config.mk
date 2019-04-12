@@ -83,13 +83,13 @@
 # Note that this must include the trailing character
 DISTILLERY_GITHUB_URL?=https://github.com/
 
-#DISTILLERY_GITHUB_URL_USER=PARC
+#DISTILLERY_GITHUB_URL_USER=parc-ccnx-archive
 # The user where we check the repositories from
-DISTILLERY_GITHUB_URL_USER?=PARC
+DISTILLERY_GITHUB_URL_USER?=parc-ccnx-archive
 
-#DISTILLERY_GITHUB_UPSTREAM_URL=git://github.com/PARC
+#DISTILLERY_GITHUB_UPSTREAM_URL=git://github.com/parc-ccnx-archive
 # The URL of the github upstream for the repositories
-DISTILLERY_GITHUB_UPSTREAM_URL?=git://github.com/PARC
+DISTILLERY_GITHUB_UPSTREAM_URL?=git://github.com/parc-ccnx-archive
 
 #DISTILLERY_GITHUB_UPSTREAM_NAME?=parc_upstream
 # The name to give this upstream
